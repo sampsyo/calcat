@@ -25,7 +25,7 @@ function* get_events(jcal: any): Iterable<any> {
  * `start` and `end` are ICAL.Time instances.
  */
 function* get_event_ocurrences(event: any, start: any, end: any) {
-  if (event.isrecurring) {
+  if (event.isRecurring()) {
     // Multiple occurrences.
     let it = event.iterator(start);
     let tm: any = null;

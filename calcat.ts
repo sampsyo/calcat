@@ -45,6 +45,20 @@ function* get_event_ocurrences(event: any, start: any, end: any) {
   }
 }
 
+/**
+ * Generate pairs of an ICAL.Event and an ICAL.Time for the start time of a
+ * given occurrence.
+ */
+function* get_occurrences(jcal: any, start: any, end: any):
+  Iterable<[any, any]>
+{
+  for (let event of get_events(jcal)) {
+    for (let tm of get_event_ocurrences(event, start, end)) {
+      yield [event, tm];
+    }
+  }
+}
+
 async function main() {
   let data = await read_string('cal.ics');
   let jcal = ICAL.parse(data);
@@ -55,11 +69,8 @@ async function main() {
   let end = now.endOfWeek();
 
   // Get all events.
-  for (let event of get_events(jcal)) {
-    for (let tm of get_event_ocurrences(event, start, end)) {
-      console.log(event.summary);
-      console.log(tm.toString());
-    }
+  for (let [event, time] of get_occurrences(jcal, start, end)) {
+    console.log(time.toString() + " " + event.summary);
   }
 }
 

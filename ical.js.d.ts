@@ -1,5 +1,5 @@
 export class Component {
-    constructor(jCal: any[]|string, parent: Component);
+    constructor(jCal: any[]|string, parent?: Component);
 
     /**
     * Finds first sub component, optionally filtered by name.
@@ -374,7 +374,7 @@ export class Event {
     * @param {Array<Component|Event>} options.exceptions
     *          Exceptions to this event, either as components or events
     */
-    constructor(component: Component | null, options: { strictExceptions: Boolean, exceptions: (Component|Event)[] });
+    constructor(component?: Component, options?: { strictExceptions: Boolean, exceptions: (Component|Event)[] });
 
     /**
     * List of related event exceptions.
@@ -2243,7 +2243,7 @@ export class Time {
     * @param {?Date} aDate     The Javascript Date to read, or null to reset
     * @param {Boolean} useUTC  If true, the UTC values of the date will be used
     */
-    static fromJSDate(aDate: Date | null, useUTC: Boolean): void;
+    static fromJSDate(aDate?: Date, useUTC?: boolean): Time;
 
     /**
     * Creates a new Time instance from the the passed data object.

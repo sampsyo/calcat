@@ -1,5 +1,5 @@
 import fs = require('fs');
-const icaljs = require('ical.js');
+const ICAL = require('ical.js');
 
 function read_string(filename: string): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -14,9 +14,9 @@ function read_string(filename: string): Promise<string> {
 }
 
 function* get_events(jcal: any): Iterable<any> {
-  var comp = new icaljs.Component(jcal);
+  var comp = new ICAL.Component(jcal);
   for (let vevent of comp.getAllSubcomponents('vevent')) {
-    var event = new icaljs.Event(vevent);
+    var event = new ICAL.Event(vevent);
     yield event;
   }
 }
@@ -47,11 +47,11 @@ function* get_event_ocurrences(event: any, start: any, end: any) {
 
 async function main() {
   let data = await read_string('cal.ics');
-  let jcal = icaljs.parse(data);
+  let jcal = ICAL.parse(data);
 
   // Time range.
-  let start = icaljs.Time.fromDateString('2016-10-06');
-  let end = icaljs.Time.fromDateString('2016-10-10');
+  let start = ICAL.Time.fromDateString('2016-10-06');
+  let end = ICAL.Time.fromDateString('2016-10-10');
 
   // Get all events.
   for (let event of get_events(jcal)) {

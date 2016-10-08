@@ -131,7 +131,7 @@ export class Component {
     * The string representation of this component.
     * @return {string}
     */
-    tostring(): string;
+    toString(): string;
 
     /**
     * Create an {@link Component} by parsing the passed iCalendar string.
@@ -293,7 +293,7 @@ export class Duration {
     * The string representation of this duration.
     * @return {string}
     */
-    tostring(): string;
+    toString(): string;
 
     /**
     * The iCalendar string representation of this duration.
@@ -565,7 +565,7 @@ export class Event {
     * The string representation of this event.
     * @return {string}
     */
-    tostring(): string;
+    toString(): string;
 
 }
 
@@ -822,7 +822,7 @@ export class Period {
     * The string representation of this period.
     * @return {string}
     */
-    tostring(): string;
+    toString(): string;
 
     /**
     * The jCal representation of this period type.
@@ -1146,7 +1146,7 @@ export class Recur {
     *   if (next.compare(rangeStart) < 0) {
     *     continue;
     *   }
-    *   console.log(next.tostring());
+    *   console.log(next.toString());
     * }
     *
     * @param {Time} aStart        The item's start date
@@ -1249,7 +1249,7 @@ export class Recur {
     * The string representation of this recurrence rule.
     * @return {string}
     */
-    tostring(): string;
+    toString(): string;
 
     /**
     * Convert an ical representation of a day (SU, MO, etc..)
@@ -1835,7 +1835,7 @@ export class Time {
     *                                  opposed to a date-time)
     * @param {Timezone} zone timezone this position occurs in
     */
-    constructor(data: { year: number, month: number, day: number, hour: number, minute: number, second: number, isDate: boolean }, zone: Timezone);
+    constructor(data: { year?: number, month?: number, day?: number, hour?: number, minute?: number, second?: number, isDate?: boolean }, zone: Timezone);
 
     /**
     * The class identifier.
@@ -2123,7 +2123,7 @@ export class Time {
     * (including : and - separators).
     * @return {string}
     */
-    tostring(): string;
+    toString(): string;
 
     /**
     * Converts the current instance to a Javascript date
@@ -2172,7 +2172,7 @@ export class Time {
     *
     * @return {Object}
     */
-    toJSON(): Object;
+    toJSON(): any;
 
     /**
     * Returns the days in the given month
@@ -2462,7 +2462,7 @@ export class Timezone {
     * The string representation of this timezone.
     * @return {string}
     */
-    tostring(): string;
+    toString(): string;
 
     /**
     * Convert the date/time from one zone to the next.
@@ -2672,7 +2672,7 @@ export class UtcOffset {
     * The string representation of this utc-offset.
     * @return {string}
     */
-    tostring(): string;
+    toString(): string;
 
     /**
     * Creates a new {@link UtcOffset} instance from the passed string.

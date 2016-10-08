@@ -4,50 +4,50 @@ export class Component {
     /**
     * Finds first sub component, optionally filtered by name.
     *
-    * @param {String=} name        Optional name to filter by
+    * @param {string=} name        Optional name to filter by
     * @return {?Component}     The found subcomponent
     */
-    getFirstSubcomponent(name?: String): Component;
+    getFirstSubcomponent(name?: string): Component;
 
     /**
     * Finds all sub components, optionally filtering by name.
     *
-    * @param {String=} name            Optional name to filter by
+    * @param {string=} name            Optional name to filter by
     * @return {Component[]}       The found sub components
     */
-    getAllSubcomponents(name?: String): Component[];
+    getAllSubcomponents(name?: string): Component[];
 
     /**
     * Returns true when a named property exists.
     *
-    * @param {String} name     The property name
-    * @return {Boolean}        True, when property is found
+    * @param {string} name     The property name
+    * @return {boolean}        True, when property is found
     */
-    hasProperty(name: String): Boolean;
+    hasProperty(name: string): boolean;
 
     /**
     * Finds the first property, optionally with the given name.
     *
-    * @param {String=} name        Lowercase property name
+    * @param {string=} name        Lowercase property name
     * @return {?Property}     The found property
     */
-    getFirstProperty(name?: String): Property;
+    getFirstProperty(name?: string): Property;
 
     /**
     * Returns first property's value, if available.
     *
-    * @param {String=} name    Lowercase property name
-    * @return {?String}        The found property value.
+    * @param {string=} name    Lowercase property name
+    * @return {?string}        The found property value.
     */
-    getFirstPropertyValue(name?: String): String;
+    getFirstPropertyValue(name?: string): string;
 
     /**
     * Get all properties in the component, optionally filtered by name.
     *
-    * @param {String=} name        Lowercase property name
+    * @param {string=} name        Lowercase property name
     * @return {Property[]}    List of properties
     */
-    getAllProperties(name?: String): Property[];
+    getAllProperties(name?: string): Property[];
 
     /**
     * Adds a single sub component.
@@ -61,18 +61,18 @@ export class Component {
     * Removes a single component by name or the instance of a specific
     * component.
     *
-    * @param {Component|String} nameOrComp    Name of component, or component
-    * @return {Boolean}                            True when comp is removed
+    * @param {Component|string} nameOrComp    Name of component, or component
+    * @return {boolean}                            True when comp is removed
     */
-    removeSubcomponent(nameOrComp: (Component|String)): Boolean;
+    removeSubcomponent(nameOrComp: (Component|string)): boolean;
 
     /**
     * Removes all components or (if given) all components by a particular
     * name.
     *
-    * @param {String=} name            Lowercase component name
+    * @param {string=} name            Lowercase component name
     */
-    removeAllSubcomponents(name?: String): void;
+    removeAllSubcomponents(name?: string): void;
 
     /**
     * Adds an {@link Property} to the component.
@@ -85,40 +85,40 @@ export class Component {
     /**
     * Helper method to add a property with a value to the component.
     *
-    * @param {String}               name         Property name to add
-    * @param {String|Number|Object} value        Property value
+    * @param {string}               name         Property name to add
+    * @param {string|number|Object} value        Property value
     * @return {Property}                    The created property
     */
-    addPropertyWithValue(name: String, value: (String|Number|Object)): Property;
+    addPropertyWithValue(name: string, value: (string|number|Object)): Property;
 
     /**
     * Helper method that will update or create a property of the given name
     * and sets its value. If multiple properties with the given name exist,
     * only the first is updated.
     *
-    * @param {String}               name         Property name to update
-    * @param {String|Number|Object} value        Property value
+    * @param {string}               name         Property name to update
+    * @param {string|number|Object} value        Property value
     * @return {Property}                    The created property
     */
-    updatePropertyWithValue(name: String, value: (String|Number|Object)): Property;
+    updatePropertyWithValue(name: string, value: (string|number|Object)): Property;
 
     /**
     * Removes a single property by name or the instance of the specific
     * property.
     *
-    * @param {String|Property} nameOrProp     Property name or instance to remove
-    * @return {Boolean}                            True, when deleted
+    * @param {string|Property} nameOrProp     Property name or instance to remove
+    * @return {boolean}                            True, when deleted
     */
-    removeProperty(nameOrProp: (String|Property)): Boolean;
+    removeProperty(nameOrProp: (string|Property)): boolean;
 
     /**
     * Removes all properties associated with this component, optionally
     * filtered by name.
     *
-    * @param {String=} name        Lowercase property name
-    * @return {Boolean}            True, when deleted
+    * @param {string=} name        Lowercase property name
+    * @return {boolean}            True, when deleted
     */
-    removeAllProperties(name?: String): Boolean;
+    removeAllProperties(name?: string): boolean;
 
     /**
     * Returns the Object representation of this component. The returned object
@@ -129,16 +129,16 @@ export class Component {
 
     /**
     * The string representation of this component.
-    * @return {String}
+    * @return {string}
     */
-    toString(): String;
+    tostring(): string;
 
     /**
     * Create an {@link Component} by parsing the passed iCalendar string.
     *
-    * @param {String} str        The iCalendar string to parse
+    * @param {string} str        The iCalendar string to parse
     */
-    static fromString(str: String): void;
+    static fromstring(str: string): void;
 
 }
 
@@ -150,12 +150,12 @@ export class Component {
 * @class
 * @alias Duration
 * @param {Object} data               An object with members of the duration
-* @param {Number} data.weeks         Duration in weeks
-* @param {Number} data.days          Duration in days
-* @param {Number} data.hours         Duration in hours
-* @param {Number} data.minutes       Duration in minutes
-* @param {Number} data.seconds       Duration in seconds
-* @param {Boolean} data.isNegative   If true, the duration is negative
+* @param {number} data.weeks         Duration in weeks
+* @param {number} data.days          Duration in days
+* @param {number} data.hours         Duration in hours
+* @param {number} data.minutes       Duration in minutes
+* @param {number} data.seconds       Duration in seconds
+* @param {boolean} data.isNegative   If true, the duration is negative
 */
 export class Duration {
     /**
@@ -166,72 +166,72 @@ export class Duration {
     * @class
     * @alias Duration
     * @param {Object} data               An object with members of the duration
-    * @param {Number} data.weeks         Duration in weeks
-    * @param {Number} data.days          Duration in days
-    * @param {Number} data.hours         Duration in hours
-    * @param {Number} data.minutes       Duration in minutes
-    * @param {Number} data.seconds       Duration in seconds
-    * @param {Boolean} data.isNegative   If true, the duration is negative
+    * @param {number} data.weeks         Duration in weeks
+    * @param {number} data.days          Duration in days
+    * @param {number} data.hours         Duration in hours
+    * @param {number} data.minutes       Duration in minutes
+    * @param {number} data.seconds       Duration in seconds
+    * @param {boolean} data.isNegative   If true, the duration is negative
     */
-    constructor(data: { weeks: Number, days: Number, hours: Number, minutes: Number, seconds: Number, isNegative: Boolean });
+    constructor(data: { weeks: number, days: number, hours: number, minutes: number, seconds: number, isNegative: boolean });
 
     /**
     * The weeks in this duration
-    * @type {Number}
+    * @type {number}
     * @default 0
     */
-    weeks: Number;
+    weeks: number;
 
     /**
     * The days in this duration
-    * @type {Number}
+    * @type {number}
     * @default 0
     */
-    days: Number;
+    days: number;
 
     /**
     * The days in this duration
-    * @type {Number}
+    * @type {number}
     * @default 0
     */
-    hours: Number;
+    hours: number;
 
     /**
     * The minutes in this duration
-    * @type {Number}
+    * @type {number}
     * @default 0
     */
-    minutes: Number;
+    minutes: number;
 
     /**
     * The seconds in this duration
-    * @type {Number}
+    * @type {number}
     * @default 0
     */
-    seconds: Number;
+    seconds: number;
 
     /**
     * The seconds in this duration
-    * @type {Boolean}
+    * @type {boolean}
     * @default false
     */
-    isNegative: Boolean;
+    isNegative: boolean;
 
     /**
     * The class identifier.
     * @constant
-    * @type {String}
+    * @type {string}
     * @default "icalduration"
     */
-    icalclass: String;
+    icalclass: string;
 
     /**
     * The type name, to be used in the jCal object.
     * @constant
-    * @type {String}
+    * @type {string}
     * @default "duration"
     */
-    icaltype: String;
+    icaltype: string;
 
     /**
     * Returns a clone of the duration object.
@@ -243,32 +243,32 @@ export class Duration {
     /**
     * The duration value expressed as a number of seconds.
     *
-    * @return {Number}             The duration value in seconds
+    * @return {number}             The duration value in seconds
     */
-    toSeconds(): Number;
+    toSeconds(): number;
 
     /**
     * Reads the passed seconds value into this duration object. Afterwards,
     * members like {@link Duration#days days} and {@link Duration#weeks weeks} will be set up
     * accordingly.
     *
-    * @param {Number} aSeconds     The duration value in seconds
+    * @param {number} aSeconds     The duration value in seconds
     * @return {Duration}      Returns this instance
     */
-    fromSeconds(aSeconds: Number): Duration;
+    fromSeconds(aSeconds: number): Duration;
 
     /**
     * Sets up the current instance using members from the passed data object.
     *
     * @param {Object} aData               An object with members of the duration
-    * @param {Number} aData.weeks         Duration in weeks
-    * @param {Number} aData.days          Duration in days
-    * @param {Number} aData.hours         Duration in hours
-    * @param {Number} aData.minutes       Duration in minutes
-    * @param {Number} aData.seconds       Duration in seconds
-    * @param {Boolean} aData.isNegative   If true, the duration is negative
+    * @param {number} aData.weeks         Duration in weeks
+    * @param {number} aData.days          Duration in days
+    * @param {number} aData.hours         Duration in hours
+    * @param {number} aData.minutes       Duration in minutes
+    * @param {number} aData.seconds       Duration in seconds
+    * @param {boolean} aData.isNegative   If true, the duration is negative
     */
-    fromData(aData: { weeks: Number, days: Number, hours: Number, minutes: Number, seconds: Number, isNegative: Boolean }): void;
+    fromData(aData: { weeks: number, days: number, hours: number, minutes: number, seconds: number, isNegative: boolean }): void;
 
     /**
     * Resets the duration instance to the default values, i.e. PT0S
@@ -279,9 +279,9 @@ export class Duration {
     * Compares the duration instance with another one.
     *
     * @param {Duration} aOther        The instance to compare with
-    * @return {Number}                     -1, 0 or 1 for less/equal/greater
+    * @return {number}                     -1, 0 or 1 for less/equal/greater
     */
-    compare(aOther: Duration): Number;
+    compare(aOther: Duration): number;
 
     /**
     * Normalizes the duration instance. For example, a duration with a value
@@ -291,54 +291,54 @@ export class Duration {
 
     /**
     * The string representation of this duration.
-    * @return {String}
+    * @return {string}
     */
-    toString(): String;
+    tostring(): string;
 
     /**
     * The iCalendar string representation of this duration.
-    * @return {String}
+    * @return {string}
     */
-    toICALString(): String;
+    toICALstring(): string;
 
     /**
     * Returns a new Duration instance from the passed seconds value.
     *
-    * @param {Number} aSeconds       The seconds to create the instance from
+    * @param {number} aSeconds       The seconds to create the instance from
     * @return {Duration}        The newly created duration instance
     */
-    static fromSeconds(aSeconds: Number): Duration;
+    static fromSeconds(aSeconds: number): Duration;
 
     /**
     * Checks if the given string is an iCalendar duration value.
     *
-    * @param {String} value      The raw ical value
-    * @return {Boolean}          True, if the given value is of the
+    * @param {string} value      The raw ical value
+    * @return {boolean}          True, if the given value is of the
     *                              duration ical type
     */
-    static isValueString(value: String): Boolean;
+    static isValuestring(value: string): boolean;
 
     /**
     * Creates a new {@link Duration} instance from the passed string.
     *
-    * @param {String} aStr       The string to parse
+    * @param {string} aStr       The string to parse
     * @return {Duration}    The created duration instance
     */
-    static fromString(aStr: String): Duration;
+    static fromstring(aStr: string): Duration;
 
     /**
     * Creates a new Duration instance from the given data object.
     *
     * @param {Object} aData               An object with members of the duration
-    * @param {Number} aData.weeks         Duration in weeks
-    * @param {Number} aData.days          Duration in days
-    * @param {Number} aData.hours         Duration in hours
-    * @param {Number} aData.minutes       Duration in minutes
-    * @param {Number} aData.seconds       Duration in seconds
-    * @param {Boolean} aData.isNegative   If true, the duration is negative
+    * @param {number} aData.weeks         Duration in weeks
+    * @param {number} aData.days          Duration in days
+    * @param {number} aData.hours         Duration in hours
+    * @param {number} aData.minutes       Duration in minutes
+    * @param {number} aData.seconds       Duration in seconds
+    * @param {boolean} aData.isNegative   If true, the duration is negative
     * @return {Duration}             The createad duration instance
     */
-    static fromData(aData: { weeks: Number, days: Number, hours: Number, minutes: Number, seconds: Number, isNegative: Boolean }): Duration;
+    static fromData(aData: { weeks: number, days: number, hours: number, minutes: number, seconds: number, isNegative: boolean }): Duration;
 
 }
 
@@ -352,7 +352,7 @@ export class Duration {
 * @alias Event
 * @param {Component=} component         The Component to base this event on
 * @param {Object} options                    Options for this event
-* @param {Boolean} options.strictExceptions
+* @param {boolean} options.strictExceptions
 *          When true, will verify exceptions are related by their UUID
 * @param {Array<Component|Event>} options.exceptions
 *          Exceptions to this event, either as components or events
@@ -369,12 +369,12 @@ export class Event {
     * @alias Event
     * @param {Component=} component         The Component to base this event on
     * @param {Object} options                    Options for this event
-    * @param {Boolean} options.strictExceptions
+    * @param {boolean} options.strictExceptions
     *          When true, will verify exceptions are related by their UUID
     * @param {Array<Component|Event>} options.exceptions
     *          Exceptions to this event, either as components or events
     */
-    constructor(component?: Component, options?: { strictExceptions: Boolean, exceptions: (Component|Event)[] });
+    constructor(component?: Component, options?: { strictExceptions: boolean, exceptions: (Component|Event)[] });
 
     /**
     * List of related event exceptions.
@@ -386,9 +386,9 @@ export class Event {
     /**
     * When true, will verify exceptions are related by their UUID.
     *
-    * @type {Boolean}
+    * @type {boolean}
     */
-    strictExceptions: Boolean;
+    strictExceptions: boolean;
 
     /**
     * Relates a given event exception to this object.  If the given component
@@ -406,9 +406,9 @@ export class Event {
     * Checks if this record is an exception and has the RANGE=THISANDFUTURE
     * value.
     *
-    * @return {Boolean}        True, when exception is within range
+    * @return {boolean}        True, when exception is within range
     */
-    modifiesFuture(): Boolean;
+    modifiesFuture(): boolean;
 
     /**
     * Finds the range exception nearest to the given date.
@@ -443,17 +443,17 @@ export class Event {
     /**
     * Checks if the event is recurring
     *
-    * @return {Boolean}        True, if event is recurring
+    * @return {boolean}        True, if event is recurring
     */
-    isRecurring(): Boolean;
+    isRecurring(): boolean;
 
     /**
     * Checks if the event describes a recurrence exception. See
     * {@tutorial terminology} for details.
     *
-    * @return {Boolean}    True, if the even describes a recurrence exception
+    * @return {boolean}    True, if the even describes a recurrence exception
     */
-    isRecurrenceException(): Boolean;
+    isRecurrenceException(): boolean;
 
     /**
     * Returns the types of recurrences this event may have.
@@ -467,16 +467,16 @@ export class Event {
     *    - MINUTELY
     *    - SECONDLY
     *
-    * @return {Object.<Recur.frequencyValues, Boolean>}
+    * @return {Object.<Recur.frequencyValues, boolean>}
     *          Object of recurrence flags
     */
-    getRecurrenceTypes(): { [k: string]: Boolean };
+    getRecurrenceTypes(): { [k: string]: boolean };
 
     /**
     * The uid of this event
-    * @type {String}
+    * @type {string}
     */
-    uid: String;
+    uid: string;
 
     /**
     * The start date
@@ -501,9 +501,9 @@ export class Event {
 
     /**
     * The location of the event.
-    * @type {String}
+    * @type {string}
     */
-    location: String;
+    location: string;
 
     /**
     * The attendees in the event
@@ -514,29 +514,29 @@ export class Event {
 
     /**
     * The event summary
-    * @type {String}
+    * @type {string}
     */
-    summary: String;
+    summary: string;
 
     /**
     * The event description.
-    * @type {String}
+    * @type {string}
     */
-    description: String;
+    description: string;
 
     /**
     * The organizer value as an uri. In most cases this is a mailto: uri, but
     * it can also be something else, like urn:uuid:...
-    * @type {String}
+    * @type {string}
     */
-    organizer: String;
+    organizer: string;
 
     /**
     * The sequence value for this event. Used for scheduling
     * see {@tutorial terminology}.
-    * @type {Number}
+    * @type {number}
     */
-    sequence: Number;
+    sequence: number;
 
     /**
     * The recurrence id for this event. See {@tutorial terminology} for details.
@@ -556,16 +556,16 @@ export class Event {
     * We will not add/remove/update the VTIMEZONE subcomponents
     *  leading to invalid ICAL data...
     * @private
-    * @param {String} propName     The property name
+    * @param {string} propName     The property name
     * @param {Time} time      The time to set
     */
-    private _setTime(propName: String, time: Time): void;
+    private _setTime(propName: string, time: Time): void;
 
     /**
     * The string representation of this event.
-    * @return {String}
+    * @return {string}
     */
-    toString(): String;
+    tostring(): string;
 
 }
 
@@ -584,19 +584,19 @@ declare module helpers {
     /**
     * Checks if the given type is of the number type and also NaN.
     *
-    * @param {Number} number     The number to check
-    * @return {Boolean}          True, if the number is strictly NaN
+    * @param {number} number     The number to check
+    * @return {boolean}          True, if the number is strictly NaN
     */
-    function isStrictlyNaN(number: Number): Boolean;
+    function isStrictlyNaN(number: number): boolean;
 
     /**
     * Parses a string value that is expected to be an integer, when the valid is
     * not an integer throws a decoration error.
     *
-    * @param {String} string     Raw string input
-    * @return {Number}           Parsed integer
+    * @param {string} string     Raw string input
+    * @return {number}           Parsed integer
     */
-    function strictParseInt(string: String): Number;
+    function strictParseInt(string: string): number;
 
     /**
     * Creates or returns a class instance of a given type with the initialization
@@ -624,12 +624,12 @@ declare module helpers {
     * Identical to indexOf but will only match values when they are not preceded
     * by a backslash character.
     *
-    * @param {String} buffer         String to search
-    * @param {String} search         Value to look for
-    * @param {Number} pos            Start position
-    * @return {Number}               The position, or -1 if not found
+    * @param {string} buffer         string to search
+    * @param {string} search         Value to look for
+    * @param {number} pos            Start position
+    * @return {number}               The position, or -1 if not found
     */
-    function unescapedIndexOf(buffer: String, search: String, pos: Number): Number;
+    function unescapedIndexOf(buffer: string, search: string, pos: number): number;
 
     /**
     * Find the index for insertion using binary search.
@@ -638,9 +638,9 @@ declare module helpers {
     * @param {?} seekVal             The value to insert
     * @param {function(?,?)} cmpfunc The comparison func, that can
     *                                  compare two seekVals
-    * @return {Number}               The insert position
+    * @return {number}               The insert position
     */
-    function binsearchInsert<T>(list: T[], seekVal: T, cmpfunc: (() => any)): Number;
+    function binsearchInsert<T>(list: T[], seekVal: T, cmpfunc: (() => any)): number;
 
     /**
     * Convenience function for debug output
@@ -653,10 +653,10 @@ declare module helpers {
     * executed.
     *
     * @param {*} aSrc            The thing to clone
-    * @param {Boolean=} aDeep    If true, a deep clone will be performed
+    * @param {boolean=} aDeep    If true, a deep clone will be performed
     * @return {*}                The copy of the thing
     */
-    function clone(aSrc: any, aDeep?: Boolean): any;
+    function clone(aSrc: any, aDeep?: boolean): any;
 
     /**
     * Performs iCalendar line folding. A line ending character is inserted and
@@ -666,27 +666,27 @@ declare module helpers {
     * SUMMARY:This line will be fold
     *  ed right in the middle of a word.
     *
-    * @param {String} aLine      The line to fold
-    * @return {String}           The folded line
+    * @param {string} aLine      The line to fold
+    * @return {string}           The folded line
     */
-    function foldline(aLine: String): String;
+    function foldline(aLine: string): string;
 
     /**
     * Pads the given string or number with zeros so it will have at least two
     * characters.
     *
-    * @param {String|Number} data    The string or number to pad
-    * @return {String}               The number padded as a string
+    * @param {string|number} data    The string or number to pad
+    * @return {string}               The number padded as a string
     */
-    function pad2(data: (String|Number)): String;
+    function pad2(data: (string|number)): string;
 
     /**
     * Truncates the given number, correctly handling negative numbers.
     *
-    * @param {Number} number     The number to truncate
-    * @return {Number}           The truncated number
+    * @param {number} number     The number to truncate
+    * @return {number}           The truncated number
     */
-    function trunc(number: Number): Number;
+    function trunc(number: number): number;
 
     /**
     * Poor-man's cross-browser inheritance for JavaScript. Doesn't support all
@@ -725,10 +725,10 @@ declare module helpers {
 * @function parse
 * @variation function
 * @todo Fix the API to be more clear on the return type
-* @param {String} input      The string data to parse
+* @param {string} input      The string data to parse
 * @return {Object|Object[]}  A single jCal object, or an array thereof
 */
-export function parse(input: String): (Object|Object[]);
+export function parse(input: string): (Object|Object[]);
 
 /**
 * @classdesc
@@ -782,18 +782,18 @@ export class Period {
     /**
     * The class identifier.
     * @constant
-    * @type {String}
+    * @type {string}
     * @default "icalperiod"
     */
-    icalclass: String;
+    icalclass: string;
 
     /**
     * The type name, to be used in the jCal object.
     * @constant
-    * @type {String}
+    * @type {string}
     * @default "period"
     */
-    icaltype: String;
+    icaltype: string;
 
     /**
     * Returns a clone of the duration object.
@@ -820,9 +820,9 @@ export class Period {
 
     /**
     * The string representation of this period.
-    * @return {String}
+    * @return {string}
     */
-    toString(): String;
+    tostring(): string;
 
     /**
     * The jCal representation of this period type.
@@ -832,18 +832,18 @@ export class Period {
 
     /**
     * The iCalendar string representation of this period.
-    * @return {String}
+    * @return {string}
     */
-    toICALString(): String;
+    toICALstring(): string;
 
     /**
     * Creates a new {@link Period} instance from the passed string.
     *
-    * @param {String} str            The string to parse
+    * @param {string} str            The string to parse
     * @param {Property} prop    The property this period will be on
     * @return {Period}          The created period instance
     */
-    static fromString(str: String, prop: Property): Period;
+    static fromstring(str: string, prop: Property): Period;
 
     /**
     * Creates a new {@link Period} instance from the given data object.
@@ -862,7 +862,7 @@ export class Period {
     * member is always the start date string, the second member is either a
     * duration or end date string.
     *
-    * @param {Array<String,String>} aData    The jCal data array
+    * @param {Array<string,string>} aData    The jCal data array
     * @param {Property} aProp           The property this jCal data is on
     * @return {Period}                  The period instance
     */
@@ -880,11 +880,11 @@ export class Period {
 * directly mutate the jCal object used to initialize.
 *
 * Can also be used to create new properties by passing
-* the name of the property (as a String).
+* the name of the property (as a string).
 *
 * @class
 * @alias Property
-* @param {Array|String} jCal         Raw jCal representation OR
+* @param {Array|string} jCal         Raw jCal representation OR
 *  the new name of the property
 *
 * @param {Component=} parent    Parent component
@@ -900,11 +900,11 @@ export class Property {
     * directly mutate the jCal object used to initialize.
     *
     * Can also be used to create new properties by passing
-    * the name of the property (as a String).
+    * the name of the property (as a string).
     *
     * @class
     * @alias Property
-    * @param {Array|String} jCal         Raw jCal representation OR
+    * @param {Array|string} jCal         Raw jCal representation OR
     *  the new name of the property
     *
     * @param {Component=} parent    Parent component
@@ -914,16 +914,16 @@ export class Property {
     /**
     * The value type for this property
     * @readonly
-    * @type {String}
+    * @type {string}
     */
-    type: String;
+    type: string;
 
     /**
     * The name of this property, in lowercase.
     * @readonly
-    * @type {String}
+    * @type {string}
     */
-    name: String;
+    name: string;
 
     /**
     * The parent component for this property.
@@ -934,47 +934,47 @@ export class Property {
     /**
     * Gets a parameter on the property.
     *
-    * @param {String}        name   Property name (lowercase)
-    * @return {Array|String}        Property value
+    * @param {string}        name   Property name (lowercase)
+    * @return {Array|string}        Property value
     */
-    getParameter(name: String): (any[]|String);
+    getParameter(name: string): (any[]|string);
 
     /**
     * Sets a parameter on the property.
     *
-    * @param {String}       name     The parameter name
-    * @param {Array|String} value    The parameter value
+    * @param {string}       name     The parameter name
+    * @param {Array|string} value    The parameter value
     */
-    setParameter(name: String, value: (any[]|String)): void;
+    setParameter(name: string, value: (any[]|string)): void;
 
     /**
     * Removes a parameter
     *
-    * @param {String} name     The parameter name
+    * @param {string} name     The parameter name
     */
-    removeParameter(name: String): void;
+    removeParameter(name: string): void;
 
     /**
     * Get the default type based on this property's name.
     *
-    * @return {String}     The default type for this property
+    * @return {string}     The default type for this property
     */
-    getDefaultType(): String;
+    getDefaultType(): string;
 
     /**
     * Sets type of property and clears out any existing values of the current
     * type.
     *
-    * @param {String} type     New iCAL type (see design.*.values)
+    * @param {string} type     New iCAL type (see design.*.values)
     */
-    resetType(type: String): void;
+    resetType(type: string): void;
 
     /**
     * Finds the first property value.
     *
-    * @return {String}         First property value
+    * @return {string}         First property value
     */
-    getFirstValue(): String;
+    getFirstValue(): string;
 
     /**
     * Gets all values on the property.
@@ -1002,9 +1002,9 @@ export class Property {
     * Sets the current value of the property. If this is a multi-value
     * property, all other values will be removed.
     *
-    * @param {String|Object} value     New property value.
+    * @param {string|Object} value     New property value.
     */
-    setValue(value: (String|Object)): void;
+    setValue(value: (string|Object)): void;
 
     /**
     * Returns the Object representation of this component. The returned object
@@ -1015,18 +1015,18 @@ export class Property {
 
     /**
     * The string representation of this component.
-    * @return {String}
+    * @return {string}
     */
-    toICALString(): String;
+    toICALstring(): string;
 
     /**
     * Create an {@link Property} by parsing the passed iCalendar string.
     *
-    * @param {String} str                        The iCalendar string to parse
+    * @param {string} str                        The iCalendar string to parse
     * @param {design.designSet=} designSet  The design data to use for this property
     * @return {Property}                    The created iCalendar property
     */
-    static fromString(str: String, designSet?: any): Property;
+    static fromstring(str: string, designSet?: any): Property;
 
 }
 
@@ -1039,19 +1039,19 @@ export class Property {
 * @alias Recur
 * @param {Object} data                       An object with members of the recurrence
 * @param {frequencyValues} freq   The frequency value
-* @param {Number=} data.interval             The INTERVAL value
+* @param {number=} data.interval             The INTERVAL value
 * @param {weekDay=} data.wkst      The week start value
 * @param {Time=} data.until             The end of the recurrence set
-* @param {Number=} data.count                The number of occurrences
-* @param {Array.<Number>=} data.bysecond     The seconds for the BYSECOND part
-* @param {Array.<Number>=} data.byminute     The minutes for the BYMINUTE part
-* @param {Array.<Number>=} data.byhour       The hours for the BYHOUR part
-* @param {Array.<String>=} data.byday        The BYDAY values
-* @param {Array.<Number>=} data.bymonthday   The days for the BYMONTHDAY part
-* @param {Array.<Number>=} data.byyearday    The days for the BYYEARDAY part
-* @param {Array.<Number>=} data.byweekno     The weeks for the BYWEEKNO part
-* @param {Array.<Number>=} data.bymonth      The month for the BYMONTH part
-* @param {Array.<Number>=} data.bysetpos     The positionals for the BYSETPOS part
+* @param {number=} data.count                The number of occurrences
+* @param {Array.<number>=} data.bysecond     The seconds for the BYSECOND part
+* @param {Array.<number>=} data.byminute     The minutes for the BYMINUTE part
+* @param {Array.<number>=} data.byhour       The hours for the BYHOUR part
+* @param {Array.<string>=} data.byday        The BYDAY values
+* @param {Array.<number>=} data.bymonthday   The days for the BYMONTHDAY part
+* @param {Array.<number>=} data.byyearday    The days for the BYYEARDAY part
+* @param {Array.<number>=} data.byweekno     The weeks for the BYWEEKNO part
+* @param {Array.<number>=} data.bymonth      The month for the BYMONTH part
+* @param {Array.<number>=} data.bysetpos     The positionals for the BYSETPOS part
 */
 export class Recur {
     /**
@@ -1063,21 +1063,21 @@ export class Recur {
     * @alias Recur
     * @param {Object} data                       An object with members of the recurrence
     * @param {frequencyValues} freq   The frequency value
-    * @param {Number=} data.interval             The INTERVAL value
+    * @param {number=} data.interval             The INTERVAL value
     * @param {weekDay=} data.wkst      The week start value
     * @param {Time=} data.until             The end of the recurrence set
-    * @param {Number=} data.count                The number of occurrences
-    * @param {Array.<Number>=} data.bysecond     The seconds for the BYSECOND part
-    * @param {Array.<Number>=} data.byminute     The minutes for the BYMINUTE part
-    * @param {Array.<Number>=} data.byhour       The hours for the BYHOUR part
-    * @param {Array.<String>=} data.byday        The BYDAY values
-    * @param {Array.<Number>=} data.bymonthday   The days for the BYMONTHDAY part
-    * @param {Array.<Number>=} data.byyearday    The days for the BYYEARDAY part
-    * @param {Array.<Number>=} data.byweekno     The weeks for the BYWEEKNO part
-    * @param {Array.<Number>=} data.bymonth      The month for the BYMONTH part
-    * @param {Array.<Number>=} data.bysetpos     The positionals for the BYSETPOS part
+    * @param {number=} data.count                The number of occurrences
+    * @param {Array.<number>=} data.bysecond     The seconds for the BYSECOND part
+    * @param {Array.<number>=} data.byminute     The minutes for the BYMINUTE part
+    * @param {Array.<number>=} data.byhour       The hours for the BYHOUR part
+    * @param {Array.<string>=} data.byday        The BYDAY values
+    * @param {Array.<number>=} data.bymonthday   The days for the BYMONTHDAY part
+    * @param {Array.<number>=} data.byyearday    The days for the BYYEARDAY part
+    * @param {Array.<number>=} data.byweekno     The weeks for the BYWEEKNO part
+    * @param {Array.<number>=} data.bymonth      The month for the BYMONTH part
+    * @param {Array.<number>=} data.bysetpos     The positionals for the BYSETPOS part
     */
-    constructor(data: { interval: Number, wkst: weekDay, until: Time, count: Number, bysecond: Number[], byminute: Number[], byhour: Number[], byday: String[], bymonthday: Number[], byyearday: Number[], byweekno: Number[], bymonth: Number[], bysetpos: Number[] }, freq: frequencyValues);
+    constructor(data: { interval: number, wkst: weekDay, until: Time, count: number, bysecond: number[], byminute: number[], byhour: number[], byday: string[], bymonthday: number[], byyearday: number[], byweekno: number[], bymonth: number[], bysetpos: number[] }, freq: frequencyValues);
 
     /**
     * An object holding the BY-parts of the recurrence rule
@@ -1087,9 +1087,9 @@ export class Recur {
 
     /**
     * The interval value for the recurrence rule.
-    * @type {Number}
+    * @type {number}
     */
-    interval: Number;
+    interval: number;
 
     /**
     * The week start day
@@ -1107,9 +1107,9 @@ export class Recur {
 
     /**
     * The maximum number of occurrences
-    * @type {?Number}
+    * @type {?number}
     */
-    count: Number;
+    count: number;
 
     /**
     * The frequency value.
@@ -1120,18 +1120,18 @@ export class Recur {
     /**
     * The class identifier.
     * @constant
-    * @type {String}
+    * @type {string}
     * @default "icalrecur"
     */
-    icalclass: String;
+    icalclass: string;
 
     /**
     * The type name, to be used in the jCal object.
     * @constant
-    * @type {String}
+    * @type {string}
     * @default "recur"
     */
-    icaltype: String;
+    icaltype: string;
 
     /**
     * Create a new iterator for this recurrence rule. The passed start date
@@ -1146,7 +1146,7 @@ export class Recur {
     *   if (next.compare(rangeStart) < 0) {
     *     continue;
     *   }
-    *   console.log(next.toString());
+    *   console.log(next.tostring());
     * }
     *
     * @param {Time} aStart        The item's start date
@@ -1164,43 +1164,43 @@ export class Recur {
     /**
     * Checks if the current rule is finite, i.e. has a count or until part.
     *
-    * @return {Boolean}        True, if the rule is finite
+    * @return {boolean}        True, if the rule is finite
     */
-    isFinite(): Boolean;
+    isFinite(): boolean;
 
     /**
     * Checks if the current rule has a count part, and not limited by an until
     * part.
     *
-    * @return {Boolean}        True, if the rule is by count
+    * @return {boolean}        True, if the rule is by count
     */
-    isByCount(): Boolean;
+    isByCount(): boolean;
 
     /**
     * Adds a component (part) to the recurrence rule. This is not a component
     * in the sense of {@link Component}, but a part of the recurrence
     * rule, i.e. BYMONTH.
     *
-    * @param {String} aType            The name of the component part
-    * @param {Array|String} aValue     The component value
+    * @param {string} aType            The name of the component part
+    * @param {Array|string} aValue     The component value
     */
-    addComponent(aType: String, aValue: (any[]|String)): void;
+    addComponent(aType: string, aValue: (any[]|string)): void;
 
     /**
     * Sets the component value for the given by-part.
     *
-    * @param {String} aType        The component part name
+    * @param {string} aType        The component part name
     * @param {Array} aValues       The component values
     */
-    setComponent(aType: String, aValues: any[]): void;
+    setComponent(aType: string, aValues: any[]): void;
 
     /**
     * Gets (a copy) of the requested component value.
     *
-    * @param {String} aType        The component part name
+    * @param {string} aType        The component part name
     * @return {Array}              The component part value
     */
-    getComponent(aType: String): any[];
+    getComponent(aType: string): any[];
 
     /**
     * Retrieves the next occurrence after the given recurrence id. See the
@@ -1223,21 +1223,21 @@ export class Recur {
     *
     * @param {Object} data                       An object with members of the recurrence
     * @param {Recur.frequencyValues} freq   The frequency value
-    * @param {Number=} data.interval             The INTERVAL value
+    * @param {number=} data.interval             The INTERVAL value
     * @param {weekDay=} data.wkst      The week start value
     * @param {Time=} data.until             The end of the recurrence set
-    * @param {Number=} data.count                The number of occurrences
-    * @param {Array.<Number>=} data.bysecond     The seconds for the BYSECOND part
-    * @param {Array.<Number>=} data.byminute     The minutes for the BYMINUTE part
-    * @param {Array.<Number>=} data.byhour       The hours for the BYHOUR part
-    * @param {Array.<String>=} data.byday        The BYDAY values
-    * @param {Array.<Number>=} data.bymonthday   The days for the BYMONTHDAY part
-    * @param {Array.<Number>=} data.byyearday    The days for the BYYEARDAY part
-    * @param {Array.<Number>=} data.byweekno     The weeks for the BYWEEKNO part
-    * @param {Array.<Number>=} data.bymonth      The month for the BYMONTH part
-    * @param {Array.<Number>=} data.bysetpos     The positionals for the BYSETPOS part
+    * @param {number=} data.count                The number of occurrences
+    * @param {Array.<number>=} data.bysecond     The seconds for the BYSECOND part
+    * @param {Array.<number>=} data.byminute     The minutes for the BYMINUTE part
+    * @param {Array.<number>=} data.byhour       The hours for the BYHOUR part
+    * @param {Array.<string>=} data.byday        The BYDAY values
+    * @param {Array.<number>=} data.bymonthday   The days for the BYMONTHDAY part
+    * @param {Array.<number>=} data.byyearday    The days for the BYYEARDAY part
+    * @param {Array.<number>=} data.byweekno     The weeks for the BYWEEKNO part
+    * @param {Array.<number>=} data.bymonth      The month for the BYMONTH part
+    * @param {Array.<number>=} data.bysetpos     The positionals for the BYSETPOS part
     */
-    fromData(data: { interval: Number, wkst: weekDay, until: Time, count: Number, bysecond: Number[], byminute: Number[], byhour: Number[], byday: String[], bymonthday: Number[], byyearday: Number[], byweekno: Number[], bymonth: Number[], bysetpos: Number[] }, freq: frequencyValues): void;
+    fromData(data: { interval: number, wkst: weekDay, until: Time, count: number, bysecond: number[], byminute: number[], byhour: number[], byday: string[], bymonthday: number[], byyearday: number[], byweekno: number[], bymonth: number[], bysetpos: number[] }, freq: frequencyValues): void;
 
     /**
     * The jCal representation of this recurrence type.
@@ -1247,34 +1247,34 @@ export class Recur {
 
     /**
     * The string representation of this recurrence rule.
-    * @return {String}
+    * @return {string}
     */
-    toString(): String;
+    tostring(): string;
 
     /**
     * Convert an ical representation of a day (SU, MO, etc..)
     * into a numeric value of that day.
     *
-    * @param {String} string     The iCalendar day name
-    * @return {Number}           Numeric value of given day
+    * @param {string} string     The iCalendar day name
+    * @return {number}           Numeric value of given day
     */
-    static icalDayToNumericDay(string: String): Number;
+    static icalDayToNumericDay(string: string): number;
 
     /**
     * Convert a numeric day value into its ical representation (SU, MO, etc..)
     *
-    * @param {Number} num        Numeric value of given day
-    * @return {String}           The ICAL day value, e.g SU,MO,...
+    * @param {number} num        Numeric value of given day
+    * @return {string}           The ICAL day value, e.g SU,MO,...
     */
-    static numericDayToIcalDay(num: Number): String;
+    static numericDayToIcalDay(num: number): string;
 
     /**
     * Creates a new {@link Recur} instance from the passed string.
     *
-    * @param {String} string         The string to parse
+    * @param {string} string         The string to parse
     * @return {Recur}           The created recurrence instance
     */
-    static fromString(string: String): Recur;
+    static fromstring(string: string): Recur;
 
     /**
     * Creates a new {@link Recur} instance using members from the passed
@@ -1282,32 +1282,32 @@ export class Recur {
     *
     * @param {Object} aData                      An object with members of the recurrence
     * @param {frequencyValues} freq   The frequency value
-    * @param {Number=} aData.interval            The INTERVAL value
+    * @param {number=} aData.interval            The INTERVAL value
     * @param {weekDay=} aData.wkst     The week start value
     * @param {Time=} aData.until            The end of the recurrence set
-    * @param {Number=} aData.count               The number of occurrences
-    * @param {Array.<Number>=} aData.bysecond    The seconds for the BYSECOND part
-    * @param {Array.<Number>=} aData.byminute    The minutes for the BYMINUTE part
-    * @param {Array.<Number>=} aData.byhour      The hours for the BYHOUR part
-    * @param {Array.<String>=} aData.byday       The BYDAY values
-    * @param {Array.<Number>=} aData.bymonthday  The days for the BYMONTHDAY part
-    * @param {Array.<Number>=} aData.byyearday   The days for the BYYEARDAY part
-    * @param {Array.<Number>=} aData.byweekno    The weeks for the BYWEEKNO part
-    * @param {Array.<Number>=} aData.bymonth     The month for the BYMONTH part
-    * @param {Array.<Number>=} aData.bysetpos    The positionals for the BYSETPOS part
+    * @param {number=} aData.count               The number of occurrences
+    * @param {Array.<number>=} aData.bysecond    The seconds for the BYSECOND part
+    * @param {Array.<number>=} aData.byminute    The minutes for the BYMINUTE part
+    * @param {Array.<number>=} aData.byhour      The hours for the BYHOUR part
+    * @param {Array.<string>=} aData.byday       The BYDAY values
+    * @param {Array.<number>=} aData.bymonthday  The days for the BYMONTHDAY part
+    * @param {Array.<number>=} aData.byyearday   The days for the BYYEARDAY part
+    * @param {Array.<number>=} aData.byweekno    The weeks for the BYWEEKNO part
+    * @param {Array.<number>=} aData.bymonth     The month for the BYMONTH part
+    * @param {Array.<number>=} aData.bysetpos    The positionals for the BYSETPOS part
     */
-    static fromData(aData: { interval: Number, wkst: weekDay, until: Time, count: Number, bysecond: Number[], byminute: Number[], byhour: Number[], byday: String[], bymonthday: Number[], byyearday: Number[], byweekno: Number[], bymonth: Number[], bysetpos: Number[] }, freq: frequencyValues): void;
+    static fromData(aData: { interval: number, wkst: weekDay, until: Time, count: number, bysecond: number[], byminute: number[], byhour: number[], byday: string[], bymonthday: number[], byyearday: number[], byweekno: number[], bymonth: number[], bysetpos: number[] }, freq: frequencyValues): void;
 
     /**
     * Converts a recurrence string to a data object, suitable for the fromData
     * method.
     *
-    * @param {String} string     The string to parse
-    * @param {Boolean} fmtIcal   If true, the string is considered to be an
+    * @param {string} string     The string to parse
+    * @param {boolean} fmtIcal   If true, the string is considered to be an
     *                              iCalendar string
     * @return {Recur}       The recurrence instance
     */
-    static _stringToData(string: String, fmtIcal: Boolean): Recur;
+    static _stringToData(string: string, fmtIcal: boolean): Recur;
 
 }
 
@@ -1315,7 +1315,7 @@ export class Recur {
 * Possible frequency values for the FREQ part
 * (YEARLY, MONTHLY, WEEKLY, DAILY, HOURLY, MINUTELY, SECONDLY)
 *
-* @typedef {String} frequencyValues
+* @typedef {string} frequencyValues
 * @memberof Recur
 */
 type frequencyValues = string;
@@ -1437,9 +1437,9 @@ export class RecurExpansion {
 
     /**
     * True when iteration is fully completed.
-    * @type {Boolean}
+    * @type {boolean}
     */
-    complete: Boolean;
+    complete: boolean;
 
     /**
     * Array of rrule iterators.
@@ -1467,17 +1467,17 @@ export class RecurExpansion {
 
     /**
     * Current position in ruleDates array.
-    * @type {Number}
+    * @type {number}
     * @private
     */
-    private ruleDateInc: Number;
+    private ruleDateInc: number;
 
     /**
     * Current position in exDates array
-    * @type {Number}
+    * @type {number}
     * @private
     */
-    private exDateInc: Number;
+    private exDateInc: number;
 
     /**
     * Current negative date.
@@ -1542,10 +1542,10 @@ export class RecurExpansion {
     *
     * @private
     * @param {Component} component        The component to search in
-    * @param {String} propertyName             The property name to search for
+    * @param {string} propertyName             The property name to search for
     * @return {Time[]}                    The extracted dates.
     */
-    private _extractDates(component: Component, propertyName: String): Time[];
+    private _extractDates(component: Component, propertyName: string): Time[];
 
     /**
     * Initialize the recurrence expansion.
@@ -1596,7 +1596,7 @@ export class RecurExpansion {
 * @param {Object} options                The iterator options
 * @param {Recur} options.rule       The rule to iterate.
 * @param {Time} options.dtstart     The start date of the event.
-* @param {Boolean=} options.initialized  When true, assume that options are
+* @param {boolean=} options.initialized  When true, assume that options are
 *        from a previously constructed iterator. Initialization will not be
 *        repeated.
 */
@@ -1619,17 +1619,17 @@ export class RecurIterator {
     * @param {Object} options                The iterator options
     * @param {Recur} options.rule       The rule to iterate.
     * @param {Time} options.dtstart     The start date of the event.
-    * @param {Boolean=} options.initialized  When true, assume that options are
+    * @param {boolean=} options.initialized  When true, assume that options are
     *        from a previously constructed iterator. Initialization will not be
     *        repeated.
     */
-    constructor(options: { rule: Recur, dtstart: Time, initialized: Boolean });
+    constructor(options: { rule: Recur, dtstart: Time, initialized: boolean });
 
     /**
     * True when iteration is finished.
-    * @type {Boolean}
+    * @type {boolean}
     */
-    completed: Boolean;
+    completed: boolean;
 
     /**
     * The rule that is being iterated
@@ -1652,9 +1652,9 @@ export class RecurIterator {
 
     /**
     * The sequence number from the occurrence
-    * @type {Number}
+    * @type {number}
     */
-    occurrence_number: Number;
+    occurrence_number: number;
 
     /**
     * The indices used for the {@link RecurIterator#by_data} object.
@@ -1665,10 +1665,10 @@ export class RecurIterator {
 
     /**
     * If true, the iterator has already been initialized
-    * @type {Boolean}
+    * @type {boolean}
     * @private
     */
-    private initialized: Boolean;
+    private initialized: boolean;
 
     /**
     * The initializd by-data.
@@ -1686,10 +1686,10 @@ export class RecurIterator {
 
     /**
     * The index in the {@link RecurIterator#days} array.
-    * @type {Number}
+    * @type {number}
     * @private
     */
-    private days_index: Number;
+    private days_index: number;
 
     /**
     * Initialize the recurrence iterator from the passed data object. This
@@ -1699,11 +1699,11 @@ export class RecurIterator {
     * @param {Object} options                The iterator options
     * @param {Recur} options.rule       The rule to iterate.
     * @param {Time} options.dtstart     The start date of the event.
-    * @param {Boolean=} options.initialized  When true, assume that options are
+    * @param {boolean=} options.initialized  When true, assume that options are
     *        from a previously constructed iterator. Initialization will not be
     *        repeated.
     */
-    fromData(options: { rule: Recur, dtstart: Time, initialized: Boolean }): void;
+    fromData(options: { rule: Recur, dtstart: Time, initialized: boolean }): void;
 
     /**
     * Intialize the iterator
@@ -1722,15 +1722,15 @@ export class RecurIterator {
     * Takes into account ordering and negative rules
     *
     * @private
-    * @param {Number} year         Current year.
-    * @param {Number} month        Current month.
+    * @param {number} year         Current year.
+    * @param {number} month        Current month.
     * @param {Array}  rules        Array of rules.
     *
     * @return {Array} sorted and normalized rules.
     *                 Negative rules will be expanded to their
     *                 correct positive values for easier processing.
     */
-    private normalizeByMonthDayRules(year: Number, month: Number, rules: any[]): any[];
+    private normalizeByMonthDayRules(year: number, month: number, rules: any[]): any[];
 
     /**
     * NOTES:
@@ -1739,17 +1739,17 @@ export class RecurIterator {
     * both conditions match a given date (this.last.day) iteration stops.
     *
     * @private
-    * @param {Boolean=} isInit     When given true will not increment the
+    * @param {boolean=} isInit     When given true will not increment the
     *                                current day (this.last).
     */
-    private _byDayAndMonthDay(isInit?: Boolean): void;
+    private _byDayAndMonthDay(isInit?: boolean): void;
 
     /**
     * Checks if given value is in BYSETPOS.
     *
     * @private
     * @param {Numeric} aPos position to check for.
-    * @return {Boolean} false unless BYSETPOS rules exist
+    * @return {boolean} false unless BYSETPOS rules exist
     *                   and the given value is present in rules.
     */
     private check_set_position(aPos: number): boolean;
@@ -1770,9 +1770,9 @@ export class RecurIterator {
 * @function stringify
 * @variation function
 * @param {Array} jCal    The jCal/jCard document
-* @return {String}       The stringified iCalendar/vCard document
+* @return {string}       The stringified iCalendar/vCard document
 */
-export function stringify(jCal: any[]): String;
+export function stringify(jCal: any[]): string;
 
 /**
 * @classdesc
@@ -1794,13 +1794,13 @@ export function stringify(jCal: any[]): String;
 * @alias Time
 * @class
 * @param {Object} data           Time initialization
-* @param {Number=} data.year     The year for this date
-* @param {Number=} data.month    The month for this date
-* @param {Number=} data.day      The day for this date
-* @param {Number=} data.hour     The hour for this date
-* @param {Number=} data.minute   The minute for this date
-* @param {Number=} data.second   The second for this date
-* @param {Boolean=} data.isDate  If true, the instance represents a date (as
+* @param {number=} data.year     The year for this date
+* @param {number=} data.month    The month for this date
+* @param {number=} data.day      The day for this date
+* @param {number=} data.hour     The hour for this date
+* @param {number=} data.minute   The minute for this date
+* @param {number=} data.second   The second for this date
+* @param {boolean=} data.isDate  If true, the instance represents a date (as
 *                                  opposed to a date-time)
 * @param {Timezone} zone timezone this position occurs in
 */
@@ -1825,34 +1825,34 @@ export class Time {
     * @alias Time
     * @class
     * @param {Object} data           Time initialization
-    * @param {Number=} data.year     The year for this date
-    * @param {Number=} data.month    The month for this date
-    * @param {Number=} data.day      The day for this date
-    * @param {Number=} data.hour     The hour for this date
-    * @param {Number=} data.minute   The minute for this date
-    * @param {Number=} data.second   The second for this date
-    * @param {Boolean=} data.isDate  If true, the instance represents a date (as
+    * @param {number=} data.year     The year for this date
+    * @param {number=} data.month    The month for this date
+    * @param {number=} data.day      The day for this date
+    * @param {number=} data.hour     The hour for this date
+    * @param {number=} data.minute   The minute for this date
+    * @param {number=} data.second   The second for this date
+    * @param {boolean=} data.isDate  If true, the instance represents a date (as
     *                                  opposed to a date-time)
     * @param {Timezone} zone timezone this position occurs in
     */
-    constructor(data: { year: Number, month: Number, day: Number, hour: Number, minute: Number, second: Number, isDate: Boolean }, zone: Timezone);
+    constructor(data: { year: number, month: number, day: number, hour: number, minute: number, second: number, isDate: boolean }, zone: Timezone);
 
     /**
     * The class identifier.
     * @constant
-    * @type {String}
+    * @type {string}
     * @default "icaltime"
     */
-    icalclass: String;
+    icalclass: string;
 
     /**
     * The type name, to be used in the jCal object. This value may change and
     * is strictly defined by the {@link Time#isDate isDate} member.
     * @readonly
-    * @type {String}
+    * @type {string}
     * @default "date-time"
     */
-    icaltype: String;
+    icaltype: string;
 
     /**
     * The timezone for this time.
@@ -1865,10 +1865,10 @@ export class Time {
     * operation must attempt to normalize the value (for example changing the
     * day to 33).
     *
-    * @type {Boolean}
+    * @type {boolean}
     * @private
     */
-    private _pendingNormalization: Boolean;
+    private _pendingNormalization: boolean;
 
     /**
     * Returns a clone of the time object.
@@ -1885,39 +1885,39 @@ export class Time {
     /**
     * Reset the time instance to the given date/time values.
     *
-    * @param {Number} year             The year to set
-    * @param {Number} month            The month to set
-    * @param {Number} day              The day to set
-    * @param {Number} hour             The hour to set
-    * @param {Number} minute           The minute to set
-    * @param {Number} second           The second to set
+    * @param {number} year             The year to set
+    * @param {number} month            The month to set
+    * @param {number} day              The day to set
+    * @param {number} hour             The hour to set
+    * @param {number} minute           The minute to set
+    * @param {number} second           The second to set
     * @param {Timezone} timezone  The timezone to set
     */
-    resetTo(year: Number, month: Number, day: Number, hour: Number, minute: Number, second: Number, timezone: Timezone): void;
+    resetTo(year: number, month: number, day: number, hour: number, minute: number, second: number, timezone: Timezone): void;
 
     /**
     * Set up the current instance from the Javascript date value.
     *
     * @param {?Date} aDate     The Javascript Date to read, or null to reset
-    * @param {Boolean} useUTC  If true, the UTC values of the date will be used
+    * @param {boolean} useUTC  If true, the UTC values of the date will be used
     */
-    fromJSDate(aDate: Date | null, useUTC: Boolean): void;
+    fromJSDate(aDate: Date | null, useUTC: boolean): void;
 
     /**
     * Sets up the current instance using members from the passed data object.
     *
     * @param {Object} aData            Time initialization
-    * @param {Number=} aData.year      The year for this date
-    * @param {Number=} aData.month     The month for this date
-    * @param {Number=} aData.day       The day for this date
-    * @param {Number=} aData.hour      The hour for this date
-    * @param {Number=} aData.minute    The minute for this date
-    * @param {Number=} aData.second    The second for this date
-    * @param {Boolean=} aData.isDate   If true, the instance represents a date
+    * @param {number=} aData.year      The year for this date
+    * @param {number=} aData.month     The month for this date
+    * @param {number=} aData.day       The day for this date
+    * @param {number=} aData.hour      The hour for this date
+    * @param {number=} aData.minute    The minute for this date
+    * @param {number=} aData.second    The second for this date
+    * @param {boolean=} aData.isDate   If true, the instance represents a date
     *                                    (as opposed to a date-time)
     * @param {Timezone=} aZone    Timezone this position occurs in
     */
-    fromData(aData: { year: Number, month: Number, day: Number, hour: Number, minute: Number, second: Number, isDate: Boolean }, aZone?: Timezone): void;
+    fromData(aData: { year: number, month: number, day: number, hour: number, minute: number, second: number, isDate: boolean }, aZone?: Timezone): void;
 
     /**
     * Calculate the day of week.
@@ -1927,9 +1927,9 @@ export class Time {
 
     /**
     * Calculate the day of year.
-    * @return {Number}
+    * @return {number}
     */
-    dayOfYear(): Number;
+    dayOfYear(): number;
 
     /**
     * Returns a copy of the current date/time, rewound to the start of the
@@ -1995,18 +1995,18 @@ export class Time {
     *
     * @param {weekDay=} aFirstDayOfWeek
     *        The week start weekday, defaults to SUNDAY
-    * @return {Number}     The calculated day of year
+    * @return {number}     The calculated day of year
     */
-    startDoyWeek(aFirstDayOfWeek?: weekDay): Number;
+    startDoyWeek(aFirstDayOfWeek?: weekDay): number;
 
     /**
     * Get the dominical letter for the current year. Letters range from A - G
     * for common years, and AG to GF for leap years.
     *
-    * @param {Number} yr           The year to retrieve the letter for
-    * @return {String}             The dominical letter.
+    * @param {number} yr           The year to retrieve the letter for
+    * @return {string}             The dominical letter.
     */
-    getDominicalLetter(yr: Number): String;
+    getDominicalLetter(yr: number): string;
 
     /**
     * Finds the nthWeekDay relative to the current month (not day).  The
@@ -2014,15 +2014,15 @@ export class Time {
     * 1 would indicate the first of the month and 40 would indicate a day in
     * the following month.
     *
-    * @param {Number} aDayOfWeek   Day of the week see the day name constants
-    * @param {Number} aPos         Nth occurrence of a given week day values
+    * @param {number} aDayOfWeek   Day of the week see the day name constants
+    * @param {number} aPos         Nth occurrence of a given week day values
     *        of 1 and 0 both indicate the first weekday of that type. aPos may
     *        be either positive or negative
     *
-    * @return {Number} numeric value indicating a day relative
+    * @return {number} numeric value indicating a day relative
     *                   to the current month of this time object
     */
-    nthWeekDay(aDayOfWeek: Number, aPos: Number): Number;
+    nthWeekDay(aDayOfWeek: number, aPos: number): number;
 
     /**
     * Checks if current time is the nth weekday, relative to the current
@@ -2030,10 +2030,10 @@ export class Time {
     * month.
     *
     * @param {weekDay} aDayOfWeek       Day of week to check
-    * @param {Number} aPos                        Relative position
-    * @return {Boolean}                           True, if its the nth weekday
+    * @param {number} aPos                        Relative position
+    * @return {boolean}                           True, if its the nth weekday
     */
-    isNthWeekDay(aDayOfWeek: weekDay, aPos: Number): Boolean;
+    isNthWeekDay(aDayOfWeek: weekDay, aPos: number): boolean;
 
     /**
     * Calculates the ISO 8601 week number. The first week of a year is the
@@ -2047,9 +2047,9 @@ export class Time {
     *
     * @see Time.weekOneStarts
     * @param {weekDay} aWeekStart        The weekday the week starts with
-    * @return {Number}                             The ISO week number
+    * @return {number}                             The ISO week number
     */
-    weekNumber(aWeekStart: weekDay): Number;
+    weeknumber(aWeekStart: weekDay): number;
 
     /**
     * Adds the duration to the current time. The instance is modified in
@@ -2081,18 +2081,18 @@ export class Time {
     * Compares the Time instance with another one.
     *
     * @param {Time} aOther        The instance to compare with
-    * @return {Number}                     -1, 0 or 1 for less/equal/greater
+    * @return {number}                     -1, 0 or 1 for less/equal/greater
     */
-    compare(aOther: Time): Number;
+    compare(aOther: Time): number;
 
     /**
     * Compares only the date part of this instance with another one.
     *
     * @param {Time} other         The instance to compare with
     * @param {Timezone} tz            The timezone to compare in
-    * @return {Number}                     -1, 0 or 1 for less/equal/greater
+    * @return {number}                     -1, 0 or 1 for less/equal/greater
     */
-    compareDateOnlyTz(other: Time, tz: Timezone): Number;
+    compareDateOnlyTz(other: Time, tz: Timezone): number;
 
     /**
     * Convert the instance into another timzone. The returned Time
@@ -2107,23 +2107,23 @@ export class Time {
     * Calculates the UTC offset of the current date/time in the timezone it is
     * in.
     *
-    * @return {Number}     UTC offset in seconds
+    * @return {number}     UTC offset in seconds
     */
-    utcOffset(): Number;
+    utcOffset(): number;
 
     /**
     * Returns an RFC 5545 compliant ical representation of this object.
     *
-    * @return {String} ical date/date-time
+    * @return {string} ical date/date-time
     */
-    toICALString(): String;
+    toICALstring(): string;
 
     /**
     * The string representation of this date/time, in jCal form
     * (including : and - separators).
-    * @return {String}
+    * @return {string}
     */
-    toString(): String;
+    tostring(): string;
 
     /**
     * Converts the current instance to a Javascript date
@@ -2134,29 +2134,29 @@ export class Time {
     /**
     * Adjust the date/time by the given offset
     *
-    * @param {Number} aExtraDays       The extra amount of days
-    * @param {Number} aExtraHours      The extra amount of hours
-    * @param {Number} aExtraMinutes    The extra amount of minutes
-    * @param {Number} aExtraSeconds    The extra amount of seconds
-    * @param {Number=} aTime           The time to adjust, defaults to the
+    * @param {number} aExtraDays       The extra amount of days
+    * @param {number} aExtraHours      The extra amount of hours
+    * @param {number} aExtraMinutes    The extra amount of minutes
+    * @param {number} aExtraSeconds    The extra amount of seconds
+    * @param {number=} aTime           The time to adjust, defaults to the
     *                                    current instance.
     */
-    adjust(aExtraDays: Number, aExtraHours: Number, aExtraMinutes: Number, aExtraSeconds: Number, aTime?: Number): void;
+    adjust(aExtraDays: number, aExtraHours: number, aExtraMinutes: number, aExtraSeconds: number, aTime?: number): void;
 
     /**
     * Sets up the current instance from unix time, the number of seconds since
     * January 1st, 1970.
     *
-    * @param {Number} seconds      The seconds to set up with
+    * @param {number} seconds      The seconds to set up with
     */
-    fromUnixTime(seconds: Number): void;
+    fromUnixTime(seconds: number): void;
 
     /**
     * Converts the current instance to seconds since January 1st 1970.
     *
-    * @return {Number}         Seconds since 1970
+    * @return {number}         Seconds since 1970
     */
-    toUnixTime(): Number;
+    toUnixTime(): number;
 
     /**
     * Converts time to into Object which can be serialized then re-created
@@ -2177,71 +2177,71 @@ export class Time {
     /**
     * Returns the days in the given month
     *
-    * @param {Number} month      The month to check
-    * @param {Number} year       The year to check
-    * @return {Number}           The number of days in the month
+    * @param {number} month      The month to check
+    * @param {number} year       The year to check
+    * @return {number}           The number of days in the month
     */
-    static daysInMonth(month: Number, year: Number): Number;
+    static daysInMonth(month: number, year: number): number;
 
     /**
     * Checks if the year is a leap year
     *
-    * @param {Number} year       The year to check
-    * @return {Boolean}          True, if the year is a leap year
+    * @param {number} year       The year to check
+    * @return {boolean}          True, if the year is a leap year
     */
-    static isLeapYear(year: Number): Boolean;
+    static isLeapYear(year: number): boolean;
 
     /**
     * Create a new Time from the day of year and year. The date is returned
     * in floating timezone.
     *
-    * @param {Number} aDayOfYear     The day of year
-    * @param {Number} aYear          The year to create the instance in
+    * @param {number} aDayOfYear     The day of year
+    * @param {number} aYear          The year to create the instance in
     * @return {Time}            The created instance with the calculated date
     */
-    static fromDayOfYear(aDayOfYear: Number, aYear: Number): Time;
+    static fromDayOfYear(aDayOfYear: number, aYear: number): Time;
 
     /**
     * Returns a new Time instance from a date string, e.g 2015-01-02.
     *
-    * @deprecated                Use {@link Time.fromDateString} instead
-    * @param {String} str        The string to create from
+    * @deprecated                Use {@link Time.fromDatestring} instead
+    * @param {string} str        The string to create from
     * @return {Time}        The date/time instance
     */
-    static fromStringv2(str: String): Time;
+    static fromstringv2(str: string): Time;
 
     /**
     * Returns a new Time instance from a date string, e.g 2015-01-02.
     *
-    * @param {String} aValue     The string to create from
+    * @param {string} aValue     The string to create from
     * @return {Time}        The date/time instance
     */
-    static fromDateString(aValue: String): Time;
+    static fromDatestring(aValue: string): Time;
 
     /**
     * Returns a new Time instance from a date-time string, e.g
     * 2015-01-02T03:04:05. If a property is specified, the timezone is set up
     * from the property's TZID parameter.
     *
-    * @param {String} aValue         The string to create from
+    * @param {string} aValue         The string to create from
     * @param {Property=} prop   The property the date belongs to
     * @return {Time}            The date/time instance
     */
-    static fromDateTimeString(aValue: String, prop?: Property): Time;
+    static fromDateTimestring(aValue: string, prop?: Property): Time;
 
     /**
     * Returns a new Time instance from a date or date-time string,
     *
-    * @param {String} aValue         The string to create from
+    * @param {string} aValue         The string to create from
     * @return {Time}            The date/time instance
     */
-    static fromString(aValue: String): Time;
+    static fromstring(aValue: string): Time;
 
     /**
     * Creates a new Time instance from the given Javascript Date.
     *
     * @param {?Date} aDate     The Javascript Date to read, or null to reset
-    * @param {Boolean} useUTC  If true, the UTC values of the date will be used
+    * @param {boolean} useUTC  If true, the UTC values of the date will be used
     */
     static fromJSDate(aDate?: Date, useUTC?: boolean): Time;
 
@@ -2249,17 +2249,17 @@ export class Time {
     * Creates a new Time instance from the the passed data object.
     *
     * @param {Object} aData            Time initialization
-    * @param {Number=} aData.year      The year for this date
-    * @param {Number=} aData.month     The month for this date
-    * @param {Number=} aData.day       The day for this date
-    * @param {Number=} aData.hour      The hour for this date
-    * @param {Number=} aData.minute    The minute for this date
-    * @param {Number=} aData.second    The second for this date
-    * @param {Boolean=} aData.isDate   If true, the instance represents a date
+    * @param {number=} aData.year      The year for this date
+    * @param {number=} aData.month     The month for this date
+    * @param {number=} aData.day       The day for this date
+    * @param {number=} aData.hour      The hour for this date
+    * @param {number=} aData.minute    The minute for this date
+    * @param {number=} aData.second    The second for this date
+    * @param {boolean=} aData.isDate   If true, the instance represents a date
     *                                    (as opposed to a date-time)
     * @param {Timezone=} aZone    Timezone this position occurs in
     */
-    static fromData(aData: { year: Number, month: Number, day: Number, hour: Number, minute: Number, second: Number, isDate: Boolean }, aZone?: Timezone): void;
+    static fromData(aData: { year: number, month: number, day: number, hour: number, minute: number, second: number, isDate: boolean }, aZone?: Timezone): void;
 
     /**
     * Creates a new Time instance from the current moment.
@@ -2270,21 +2270,21 @@ export class Time {
     /**
     * Returns the date on which ISO week number 1 starts.
     *
-    * @see Time#weekNumber
-    * @param {Number} aYear                  The year to search in
+    * @see Time#weeknumber
+    * @param {number} aYear                  The year to search in
     * @param {weekDay=} aWeekStart The week start weekday, used for calculation.
     * @return {Time}                    The date on which week number 1 starts
     */
-    static weekOneStarts(aYear: Number, aWeekStart?: weekDay): Time;
+    static weekOneStarts(aYear: number, aWeekStart?: weekDay): Time;
 
     /**
     * Get the dominical letter for the given year. Letters range from A - G for
     * common years, and AG to GF for leap years.
     *
-    * @param {Number} yr           The year to retrieve the letter for
-    * @return {String}             The dominical letter.
+    * @param {number} yr           The year to retrieve the letter for
+    * @return {string}             The dominical letter.
     */
-    static getDominicalLetter(yr: Number): String;
+    static getDominicalLetter(yr: number): string;
 
     /**
     * January 1st, 1970 as an Time.
@@ -2301,7 +2301,7 @@ export class Time {
     * @example
     * var isLeapYear = Time.isLeapYear(year);
     * var passedDays = Time.daysInYearPassedMonth[isLeapYear][month];
-    * @type {Array.<Array.<Number>>}
+    * @type {Array.<Array.<number>>}
     */
     static daysInYearPassedMonth: number[][];
 
@@ -2318,10 +2318,10 @@ export class Time {
 * The weekday, 1 = SUNDAY, 7 = SATURDAY. Access via
 * Time.MONDAY, Time.TUESDAY, ...
 *
-* @typedef {Number} weekDay
+* @typedef {number} weekDay
 * @memberof Time
 */
-type weekDay = Number;
+type weekDay = number;
 
 /**
 * @classdesc
@@ -2339,16 +2339,16 @@ type weekDay = Number;
 *
 * @class
 * @param {Component|Object} data options for class
-* @param {String|Component} data.component
+* @param {string|Component} data.component
 *        If data is a simple object, then this member can be set to either a
 *        string containing the component data, or an already parsed
 *        Component
-* @param {String} data.tzid      The timezone identifier
-* @param {String} data.location  The timezone locationw
-* @param {String} data.tznames   An alternative string representation of the
+* @param {string} data.tzid      The timezone identifier
+* @param {string} data.location  The timezone locationw
+* @param {string} data.tznames   An alternative string representation of the
 *                                  timezone
-* @param {Number} data.latitude  The latitude of the timezone
-* @param {Number} data.longitude The longitude of the timezone
+* @param {number} data.latitude  The latitude of the timezone
+* @param {number} data.longitude The longitude of the timezone
 */
 export class Timezone {
     /**
@@ -2367,48 +2367,48 @@ export class Timezone {
     *
     * @class
     * @param {Component|Object} data options for class
-    * @param {String|Component} data.component
+    * @param {string|Component} data.component
     *        If data is a simple object, then this member can be set to either a
     *        string containing the component data, or an already parsed
     *        Component
-    * @param {String} data.tzid      The timezone identifier
-    * @param {String} data.location  The timezone locationw
-    * @param {String} data.tznames   An alternative string representation of the
+    * @param {string} data.tzid      The timezone identifier
+    * @param {string} data.location  The timezone locationw
+    * @param {string} data.tznames   An alternative string representation of the
     *                                  timezone
-    * @param {Number} data.latitude  The latitude of the timezone
-    * @param {Number} data.longitude The longitude of the timezone
+    * @param {number} data.latitude  The latitude of the timezone
+    * @param {number} data.longitude The longitude of the timezone
     */
-    constructor(data: (Component|{ component: (String|Component), tzid: String, location: String, tznames: String, latitude: Number, longitude: Number }));
+    constructor(data: (Component|{ component: (string|Component), tzid: string, location: string, tznames: string, latitude: number, longitude: number }));
 
     /**
     * Timezone identifier
-    * @type {String}
+    * @type {string}
     */
-    tzid: String;
+    tzid: string;
 
     /**
     * Timezone location
-    * @type {String}
+    * @type {string}
     */
-    location: String;
+    location: string;
 
     /**
     * Alternative timezone name, for the string representation
-    * @type {String}
+    * @type {string}
     */
-    tznames: String;
+    tznames: string;
 
     /**
     * The primary latitude for the timezone.
-    * @type {Number}
+    * @type {number}
     */
-    latitude: Number;
+    latitude: number;
 
     /**
     * The primary longitude for the timezone.
-    * @type {Number}
+    * @type {number}
     */
-    longitude: Number;
+    longitude: number;
 
     /**
     * The vtimezone component for this timezone.
@@ -2421,48 +2421,48 @@ export class Timezone {
     * dates until this year are known and can be used for calculation
     *
     * @private
-    * @type {Number}
+    * @type {number}
     */
-    private expandedUntilYear: Number;
+    private expandedUntilYear: number;
 
     /**
     * The class identifier.
     * @constant
-    * @type {String}
+    * @type {string}
     * @default "icaltimezone"
     */
-    icalclass: String;
+    icalclass: string;
 
     /**
     * Sets up the current instance using members from the passed data object.
     *
     * @param {Component|Object} aData options for class
-    * @param {String|Component} aData.component
+    * @param {string|Component} aData.component
     *        If aData is a simple object, then this member can be set to either a
     *        string containing the component data, or an already parsed
     *        Component
-    * @param {String} aData.tzid      The timezone identifier
-    * @param {String} aData.location  The timezone locationw
-    * @param {String} aData.tznames   An alternative string representation of the
+    * @param {string} aData.tzid      The timezone identifier
+    * @param {string} aData.location  The timezone locationw
+    * @param {string} aData.tznames   An alternative string representation of the
     *                                  timezone
-    * @param {Number} aData.latitude  The latitude of the timezone
-    * @param {Number} aData.longitude The longitude of the timezone
+    * @param {number} aData.latitude  The latitude of the timezone
+    * @param {number} aData.longitude The longitude of the timezone
     */
-    fromData(aData: (Component|{ component: (String|Component), tzid: String, location: String, tznames: String, latitude: Number, longitude: Number })): void;
+    fromData(aData: (Component|{ component: (string|Component), tzid: string, location: string, tznames: string, latitude: number, longitude: number })): void;
 
     /**
     * Finds the utcOffset the given time would occur in this timezone.
     *
     * @param {Time} tt        The time to check for
-    * @return {Number} utc offset in seconds
+    * @return {number} utc offset in seconds
     */
-    utcOffset(tt: Time): Number;
+    utcOffset(tt: Time): number;
 
     /**
     * The string representation of this timezone.
-    * @return {String}
+    * @return {string}
     */
-    toString(): String;
+    tostring(): string;
 
     /**
     * Convert the date/time from one zone to the next.
@@ -2478,18 +2478,18 @@ export class Timezone {
     * Creates a new Timezone instance from the passed data object.
     *
     * @param {Component|Object} aData options for class
-    * @param {String|Component} aData.component
+    * @param {string|Component} aData.component
     *        If aData is a simple object, then this member can be set to either a
     *        string containing the component data, or an already parsed
     *        Component
-    * @param {String} aData.tzid      The timezone identifier
-    * @param {String} aData.location  The timezone locationw
-    * @param {String} aData.tznames   An alternative string representation of the
+    * @param {string} aData.tzid      The timezone identifier
+    * @param {string} aData.location  The timezone locationw
+    * @param {string} aData.tznames   An alternative string representation of the
     *                                  timezone
-    * @param {Number} aData.latitude  The latitude of the timezone
-    * @param {Number} aData.longitude The longitude of the timezone
+    * @param {number} aData.latitude  The latitude of the timezone
+    * @param {number} aData.longitude The longitude of the timezone
     */
-    static fromData(aData: (Component|{ component: (String|Component), tzid: String, location: String, tznames: String, latitude: Number, longitude: Number })): void;
+    static fromData(aData: (Component|{ component: (string|Component), tzid: string, location: string, tznames: string, latitude: number, longitude: number })): void;
 
     /**
     * The instance describing the UTC timezone
@@ -2511,12 +2511,12 @@ export class Timezone {
     * Adjust a timezone change object.
     * @private
     * @param {Object} change     The timezone change object
-    * @param {Number} days       The extra amount of days
-    * @param {Number} hours      The extra amount of hours
-    * @param {Number} minutes    The extra amount of minutes
-    * @param {Number} seconds    The extra amount of seconds
+    * @param {number} days       The extra amount of days
+    * @param {number} hours      The extra amount of hours
+    * @param {number} minutes    The extra amount of minutes
+    * @param {number} seconds    The extra amount of seconds
     */
-    private static adjust_change(change: Object, days: Number, hours: Number, minutes: Number, seconds: Number): void;
+    private static adjust_change(change: Object, days: number, hours: number, minutes: number, seconds: number): void;
 
 }
 
@@ -2533,37 +2533,37 @@ declare module TimezoneService {
     /**
     * Checks if timezone id has been registered.
     *
-    * @param {String} tzid     Timezone identifier (e.g. America/Los_Angeles)
-    * @return {Boolean}        False, when not present
+    * @param {string} tzid     Timezone identifier (e.g. America/Los_Angeles)
+    * @return {boolean}        False, when not present
     */
-    function has(tzid: String): Boolean;
+    function has(tzid: string): boolean;
 
     /**
     * Returns a timezone by its tzid if present.
     *
-    * @param {String} tzid     Timezone identifier (e.g. America/Los_Angeles)
+    * @param {string} tzid     Timezone identifier (e.g. America/Los_Angeles)
     * @return {?Timezone} The timezone, or null if not found
     */
-    function get(tzid: String): Timezone;
+    function get(tzid: string): Timezone;
 
     /**
     * Registers a timezone object or component.
     *
-    * @param {String=} name
+    * @param {string=} name
     *        The name of the timezone. Defaults to the component's TZID if not
     *        passed.
     * @param {Component|Timezone} zone
     *        The initialized zone or vtimezone.
     */
-    function register(name: String | null, zone: (Component|Timezone)): void;
+    function register(name: string | null, zone: (Component|Timezone)): void;
 
     /**
     * Removes a timezone by its tzid from the list.
     *
-    * @param {String} tzid     Timezone identifier (e.g. America/Los_Angeles)
+    * @param {string} tzid     Timezone identifier (e.g. America/Los_Angeles)
     * @return {?Timezone} The removed timezone, or null if not registered
     */
-    function remove(tzid: String): Timezone;
+    function remove(tzid: string): Timezone;
 
 }
 
@@ -2575,9 +2575,9 @@ declare module TimezoneService {
 * @class
 * @alias UtcOffset
 * @param {Object} aData          An object with members of the utc offset
-* @param {Number=} aData.hours   The hours for the utc offset
-* @param {Number=} aData.minutes The minutes in the utc offset
-* @param {Number=} aData.factor  The factor for the utc-offset, either -1 or 1
+* @param {number=} aData.hours   The hours for the utc offset
+* @param {number=} aData.minutes The minutes in the utc offset
+* @param {number=} aData.factor  The factor for the utc-offset, either -1 or 1
 */
 export class UtcOffset {
     /**
@@ -2588,38 +2588,38 @@ export class UtcOffset {
     * @class
     * @alias UtcOffset
     * @param {Object} aData          An object with members of the utc offset
-    * @param {Number=} aData.hours   The hours for the utc offset
-    * @param {Number=} aData.minutes The minutes in the utc offset
-    * @param {Number=} aData.factor  The factor for the utc-offset, either -1 or 1
+    * @param {number=} aData.hours   The hours for the utc offset
+    * @param {number=} aData.minutes The minutes in the utc offset
+    * @param {number=} aData.factor  The factor for the utc-offset, either -1 or 1
     */
-    constructor(aData: { hours: Number, minutes: Number, factor: Number });
+    constructor(aData: { hours: number, minutes: number, factor: number });
 
     /**
     * The hours in the utc-offset
-    * @type {Number}
+    * @type {number}
     */
-    hours: Number;
+    hours: number;
 
     /**
     * The minutes in the utc-offset
-    * @type {Number}
+    * @type {number}
     */
-    minutes: Number;
+    minutes: number;
 
     /**
     * The sign of the utc offset, 1 for positive offset, -1 for negative
     * offsets.
-    * @type {Number}
+    * @type {number}
     */
-    factor: Number;
+    factor: number;
 
     /**
     * The type name, to be used in the jCal object.
     * @constant
-    * @type {String}
+    * @type {string}
     * @default "utc-offset"
     */
-    icaltype: String;
+    icaltype: string;
 
     /**
     * Returns a clone of the utc offset object.
@@ -2632,63 +2632,63 @@ export class UtcOffset {
     * Sets up the current instance using members from the passed data object.
     *
     * @param {Object} aData          An object with members of the utc offset
-    * @param {Number=} aData.hours   The hours for the utc offset
-    * @param {Number=} aData.minutes The minutes in the utc offset
-    * @param {Number=} aData.factor  The factor for the utc-offset, either -1 or 1
+    * @param {number=} aData.hours   The hours for the utc offset
+    * @param {number=} aData.minutes The minutes in the utc offset
+    * @param {number=} aData.factor  The factor for the utc-offset, either -1 or 1
     */
-    fromData(aData: { hours: Number, minutes: Number, factor: Number }): void;
+    fromData(aData: { hours: number, minutes: number, factor: number }): void;
 
     /**
     * Sets up the current instance from the given seconds value. The seconds
     * value is truncated to the minute. Offsets are wrapped when the world
     * ends, the hour after UTC+14:00 is UTC-12:00.
     *
-    * @param {Number} aSeconds         The seconds to convert into an offset
+    * @param {number} aSeconds         The seconds to convert into an offset
     */
-    fromSeconds(aSeconds: Number): void;
+    fromSeconds(aSeconds: number): void;
 
     /**
     * Convert the current offset to a value in seconds
     *
-    * @return {Number}                 The offset in seconds
+    * @return {number}                 The offset in seconds
     */
-    toSeconds(): Number;
+    toSeconds(): number;
 
     /**
     * Compare this utc offset with another one.
     *
     * @param {UtcOffset} other        The other offset to compare with
-    * @return {Number}                     -1, 0 or 1 for less/equal/greater
+    * @return {number}                     -1, 0 or 1 for less/equal/greater
     */
-    compare(other: UtcOffset): Number;
+    compare(other: UtcOffset): number;
 
     /**
     * The iCalendar string representation of this utc-offset.
-    * @return {String}
+    * @return {string}
     */
-    toICALString(): String;
+    toICALstring(): string;
 
     /**
     * The string representation of this utc-offset.
-    * @return {String}
+    * @return {string}
     */
-    toString(): String;
+    tostring(): string;
 
     /**
     * Creates a new {@link UtcOffset} instance from the passed string.
     *
-    * @param {String} aString    The string to parse
+    * @param {string} astring    The string to parse
     * @return {Duration}    The created utc-offset instance
     */
-    static fromString(aString: String): Duration;
+    static fromstring(astring: string): Duration;
 
     /**
     * Creates a new {@link UtcOffset} instance from the passed seconds
     * value.
     *
-    * @param {Number} aSeconds       The number of seconds to convert
+    * @param {number} aSeconds       The number of seconds to convert
     */
-    static fromSeconds(aSeconds: Number): void;
+    static fromSeconds(aSeconds: number): void;
 
 }
 
@@ -2707,14 +2707,14 @@ export class UtcOffset {
 * @class
 * @extends {Time}
 * @param {Object} data                           The data for the time instance
-* @param {Number=} data.year                     The year for this date
-* @param {Number=} data.month                    The month for this date
-* @param {Number=} data.day                      The day for this date
-* @param {Number=} data.hour                     The hour for this date
-* @param {Number=} data.minute                   The minute for this date
-* @param {Number=} data.second                   The second for this date
+* @param {number=} data.year                     The year for this date
+* @param {number=} data.month                    The month for this date
+* @param {number=} data.day                      The day for this date
+* @param {number=} data.hour                     The hour for this date
+* @param {number=} data.minute                   The minute for this date
+* @param {number=} data.second                   The second for this date
 * @param {Timezone|UtcOffset} zone     The timezone to use
-* @param {String} icaltype                       The type for this date/time object
+* @param {string} icaltype                       The type for this date/time object
 */
 export class VCardTime extends Time {
     /**
@@ -2732,24 +2732,24 @@ export class VCardTime extends Time {
     * @class
     * @extends {Time}
     * @param {Object} data                           The data for the time instance
-    * @param {Number=} data.year                     The year for this date
-    * @param {Number=} data.month                    The month for this date
-    * @param {Number=} data.day                      The day for this date
-    * @param {Number=} data.hour                     The hour for this date
-    * @param {Number=} data.minute                   The minute for this date
-    * @param {Number=} data.second                   The second for this date
+    * @param {number=} data.year                     The year for this date
+    * @param {number=} data.month                    The month for this date
+    * @param {number=} data.day                      The day for this date
+    * @param {number=} data.hour                     The hour for this date
+    * @param {number=} data.minute                   The minute for this date
+    * @param {number=} data.second                   The second for this date
     * @param {Timezone|UtcOffset} zone     The timezone to use
-    * @param {String} icaltype                       The type for this date/time object
+    * @param {string} icaltype                       The type for this date/time object
     */
-    constructor(data: { year: Number, month: Number, day: Number, hour: Number, minute: Number, second: Number }, zone: (Timezone|UtcOffset), icaltype: String);
+    constructor(data: { year: number, month: number, day: number, hour: number, minute: number, second: number }, zone: (Timezone|UtcOffset), icaltype: string);
 
     /**
     * Returns a new VCardTime instance from a date and/or time string.
     *
-    * @param {String} aValue     The string to create from
-    * @param {String} aIcalType  The type for this instance, e.g. date-and-or-time
+    * @param {string} aValue     The string to create from
+    * @param {string} aIcalType  The type for this instance, e.g. date-and-or-time
     * @return {VCardTime}   The date/time instance
     */
-    static fromDateAndOrTimeString(aValue: String, aIcalType: String): VCardTime;
+    static fromDateAndOrTimestring(aValue: string, aIcalType: string): VCardTime;
 
 }

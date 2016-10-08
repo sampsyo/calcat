@@ -1,0 +1,12 @@
+{
+  "name": "calcat",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "ical.js": "^1.2.2"
+  },
+  "devDependencies": {
+    "typescript": "^2.0.3",
+    "@types/node": "^6.0.45"
+  }
+}

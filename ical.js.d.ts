@@ -173,7 +173,7 @@ export class Duration {
     * @param {number} data.seconds       Duration in seconds
     * @param {boolean} data.isNegative   If true, the duration is negative
     */
-    constructor(data: { weeks: number, days: number, hours: number, minutes: number, seconds: number, isNegative: boolean });
+    constructor(data: { weeks?: number, days?: number, hours?: number, minutes?: number, seconds?: number, isNegative?: boolean });
 
     /**
     * The weeks in this duration

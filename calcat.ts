@@ -26,6 +26,7 @@ function* get_events(jcal: any): Iterable<any> {
  */
 function* get_event_ocurrences(event: any, start: any, end: any) {
   if (event.isrecurring) {
+    // Multiple occurrences.
     let it = event.iterator(start);
     let tm: any = null;
     while (tm = it.next()) {
@@ -33,6 +34,13 @@ function* get_event_ocurrences(event: any, start: any, end: any) {
         break;
       }
       yield tm;
+    }
+
+  } else {
+    // Just one "occurrence".
+    if (event.endDate.compare(start) !== -1  // endDate >= start
+        && event.startDate.compare(end) !== 1) {  // startDate <= end
+      yield event.startDate;
     }
   }
 }
@@ -47,8 +55,8 @@ async function main() {
 
   // Get all events.
   for (let event of get_events(jcal)) {
-    console.log(event.toString());
     for (let tm of get_event_ocurrences(event, start, end)) {
+      console.log(event.summary);
       console.log(tm.toString());
     }
   }

@@ -132,7 +132,25 @@ function* draw_avail(
   // For each event, set the availability.
   for (let [event, time] of info) {
     let details = event.getOccurrenceDetails(time);
-    // TODO
+
+    // Don't plot all-day events.
+    if ((details.startDate as any).isDate) {  // TODO
+      continue;
+    }
+
+    // Ensure this event is in range.
+    if (details.endDate.compare(begin) === -1 ||
+        details.startDate.compare(end) === 1) {
+      continue;
+    }
+
+    for (let t of iter_time(details.startDate, details.endDate, incr)) {
+      let distFromStart = t.subtractDate(begin);
+      let slot = Math.floor(distFromStart.toSeconds() / 60 / increment_minutes);
+      if (slot >= 0 && slot < avail.length) {
+        avail[slot] = false;
+      }
+    }
   }
 
   // Print out the availability.

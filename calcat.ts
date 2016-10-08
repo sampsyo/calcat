@@ -1,6 +1,9 @@
 import fs = require('fs');
 const ICAL = require('ical.js');
 
+/**
+ * Async function to read a string from a file given its name.
+ */
 function read_string(filename: string): Promise<string> {
   return new Promise((resolve, reject) => {
     fs.readFile(filename, function (err: any, data: any) {
@@ -13,22 +16,26 @@ function read_string(filename: string): Promise<string> {
   });
 }
 
-function* get_events(jcal: any): Iterable<any> {
-  var comp = new ICAL.Component(jcal);
+/**
+ * Generate all the Events in a calendar.
+ */
+function* get_events(jcal: any): Iterable<ICAL.Event> {
+  let comp = new ICAL.Component(jcal);
   for (let vevent of comp.getAllSubcomponents('vevent')) {
-    var event = new ICAL.Event(vevent);
-    yield event;
+    yield new ICAL.Event(vevent);
   }
 }
 
 /**
- * `start` and `end` are ICAL.Time instances.
+ * Get all the occurrences of a given Event in a time range. This works on
+ * both repeating and non-repeating events: non-repeating events just have
+ * a single "occurrence."
  */
 function* get_event_ocurrences(event: ICAL.Event, start: ICAL.Time, end: ICAL.Time) {
   if (event.isRecurring()) {
     // Multiple occurrences.
     let it = event.iterator();
-    let tm: any = null;
+    let tm: ICAL.Time | null = null;
     while (tm = it.next()) {
       if (tm.compare(end) === 1) {  // tm > end
         break;
@@ -48,11 +55,11 @@ function* get_event_ocurrences(event: ICAL.Event, start: ICAL.Time, end: ICAL.Ti
 }
 
 /**
- * Generate pairs of an ICAL.Event and an ICAL.Time for the start time of a
- * given occurrence.
+ * Generate event/start-time pairs for all the occurrenes of all the events
+ * in a calendar in a given range.
  */
 function* get_occurrences(jcal: any, start: ICAL.Time, end: ICAL.Time):
-  Iterable<[any, any]>
+  Iterable<[ICAL.Event, ICAL.Time]>
 {
   for (let event of get_events(jcal)) {
     for (let tm of get_event_ocurrences(event, start, end)) {

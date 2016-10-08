@@ -27,13 +27,15 @@ function* get_events(jcal: any): Iterable<any> {
 function* get_event_ocurrences(event: any, start: any, end: any) {
   if (event.isRecurring()) {
     // Multiple occurrences.
-    let it = event.iterator(start);
+    let it = event.iterator();
     let tm: any = null;
     while (tm = it.next()) {
       if (tm.compare(end) === 1) {  // tm > end
         break;
       }
-      yield tm;
+      if (tm.compare(start) !== -1) {  // tm >= start
+        yield tm;
+      }
     }
 
   } else {

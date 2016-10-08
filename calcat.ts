@@ -1,5 +1,5 @@
-import fs = require('fs');
-const ICAL = require('ical.js');
+import * as fs from 'fs';
+import * as ICAL from 'ical.js';
 
 /**
  * Async function to read a string from a file given its name.

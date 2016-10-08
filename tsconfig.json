@@ -8,10 +8,14 @@
     "module": "commonjs",
 
     "outDir": "build",
-    "sourceMap": true
+    "sourceMap": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "ical.js": ["ical.js"]
+    }
   },
   "files": [
-    "calcat.ts",
-    "ical.js.d.ts"
+    "calcat.ts"
   ]
 }

@@ -79,7 +79,8 @@ async function main() {
 
   // Get all events.
   for (let [event, time] of get_occurrences(jcal, start, end)) {
-    console.log(time.toString() + " " + event.summary);
+    let details = event.getOccurrenceDetails(time);
+    console.log(details.startDate.toString() + " " + event.summary);
   }
 }
 

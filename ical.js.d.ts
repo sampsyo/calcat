@@ -427,9 +427,9 @@ export class Event {
     *       with the {@link Event#iterator iterator} method.
     *
     * @param {Time} occurrence time occurrence
-    * @return {Event.occurrenceDetails} Information about the occurrence
+    * @return {OccurrenceDetails} Information about the occurrence
     */
-    getOccurrenceDetails(occurrence: Time): occurrenceDetails;
+    getOccurrenceDetails(occurrence: Time): OccurrenceDetails;
 
     /**
     * Builds a recur expansion instance for a specific point in time (defaults
@@ -569,7 +569,7 @@ export class Event {
 
 }
 
-export interface occurrenceDetails {
+export interface OccurrenceDetails {
     recurrenceId: Time;
     item: Event;
     startDate: Time;

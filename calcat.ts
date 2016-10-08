@@ -96,7 +96,7 @@ function* iter_time(
   increment: ICAL.Duration
 ): Iterable<ICAL.Time> {
   let t = begin.clone();
-  while (t.compare(end) !== 1) {
+  while (t.compare(end) === -1) {
     yield t;
     t.addDuration(increment);
   }
@@ -170,6 +170,52 @@ function* draw_avail(
   yield line;
 }
 
+function draw_header(
+  start_hour: number = 9,
+  end_hour: number = 17,
+  increment_minutes: number = 15
+) {
+  let today = dateOfTime(ICAL.Time.now());
+
+  // Ranges for iteration.
+  // TODO Unclone.
+  let begin = today.clone();
+  (begin as any).isDate = false;  // TODO
+  begin.adjust(0, start_hour, 0, 0);
+  let end = today.clone();
+  (end as any).isDate = false;  // TODO
+  end.adjust(0, end_hour, 0, 0);
+  let incr = new ICAL.Duration({ minutes: increment_minutes });
+
+  let line = '';
+  let chunk = 60 / increment_minutes;
+  for (let t of iter_time(begin, end, incr)) {
+    if (t.toJSON()['minute'] === 0) {
+      line += '|';
+
+      let h = t.toJSON()['hour'];
+      let hstr: string;
+      if (h == 12) {
+        hstr = 'noon';
+      } else if (h == 0) {
+        hstr = 'mdnt';
+      } else if (h < 12) {
+        hstr = h + 'a';
+      } else {
+        hstr = (h - 12) + 'p';
+      }
+
+      line += hstr;
+      if (hstr.length < chunk) {
+        for (let i = 0; i < chunk - hstr.length; ++i) {
+          line += ' ';
+        }
+      }
+    }
+  }
+  return '           ' + line;
+}
+
 /**
  * Generate event/start-time pairs for all the occurrenes of all the events
  * in a calendar in a given range.
@@ -196,6 +242,7 @@ async function main() {
 
   // Get all events.
   let instances = get_occurrences(jcal, start, end);
+  console.log(draw_header());
   for (let line of draw_avail(instances, now)) {
     console.log(line);
   }

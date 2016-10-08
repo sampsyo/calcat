@@ -1,122 +1,7 @@
 /** @namespace ICAL */
 declare module ICAL {
-   /**
-    * @classdesc
-    * Represents the BINARY value type, which contains extra methods for
-    * encoding and decoding.
-    *
-    * @class
-    * @alias ICAL.Binary
-    * @param {String} aValue     The binary data for this value
-    */
-   class Binary {
-       /**
-        * @classdesc
-        * Represents the BINARY value type, which contains extra methods for
-        * encoding and decoding.
-        *
-        * @class
-        * @alias ICAL.Binary
-        * @param {String} aValue     The binary data for this value
-        */
-       constructor(aValue: String);
-
-       /**
-        * The type name, to be used in the jCal object.
-        * @default "binary"
-        * @constant
-        */
-       icaltype: any;
-
-       /**
-        * Base64 decode the current value
-        *
-        * @return {String}         The base64-decoded value
-        */
-       decodeValue(): String;
-
-       /**
-        * Encodes the passed parameter with base64 and sets the internal
-        * value to the result.
-        *
-        * @param {String} aValue      The raw binary value to encode
-        */
-       setEncodedValue(aValue: String): void;
-
-       /**
-        * The string representation of this value
-        * @return {String}
-        */
-       toString(): String;
-
-       /**
-        * Creates a binary value from the given string.
-        *
-        * @param {String} aString        The binary value string
-        * @return {ICAL.Binary}          The binary value instance
-        */
-       static fromString(aString: String): ICAL.Binary;
-
-   }
-
-   /**
-    * @classdesc
-    * Wraps a jCal component, adding convenience methods to add, remove and
-    * update subcomponents and properties.
-    *
-    * @class
-    * @alias ICAL.Component
-    * @param {Array|String} jCal         Raw jCal component data OR name of new
-    *                                      component
-    * @param {ICAL.Component} parent     Parent component to associate
-    */
    class Component {
-       /**
-        * @classdesc
-        * Wraps a jCal component, adding convenience methods to add, remove and
-        * update subcomponents and properties.
-        *
-        * @class
-        * @alias ICAL.Component
-        * @param {Array|String} jCal         Raw jCal component data OR name of new
-        *                                      component
-        * @param {ICAL.Component} parent     Parent component to associate
-        */
-       constructor(jCal: (Array|String), parent: ICAL.Component);
-
-       /**
-        * Hydrated properties are inserted into the _properties array at the same
-        * position as in the jCal array, so its possible the array contains
-        * undefined values for unhydrdated properties. To avoid iterating the
-        * array when checking if all properties have been hydrated, we save the
-        * count here.
-        *
-        * @type {Number}
-        * @private
-        */
-       private _hydratedPropertyCount: Number;
-
-       /**
-        * The same count as for _hydratedPropertyCount, but for subcomponents
-        *
-        * @type {Number}
-        * @private
-        */
-       private _hydratedComponentCount: Number;
-
-       /**
-        * The name of this component
-        * @readonly
-        */
-       name: any;
-
-       /**
-        * The design set for this component, e.g. icalendar vs vcard
-        *
-        * @type {ICAL.design.designSet}
-        * @private
-        */
-       private _designSet: ICAL.design.designSet;
+       constructor(jCal: any[]|string, parent: ICAL.Component);
 
        /**
         * Finds first sub component, optionally filtered by name.
@@ -256,230 +141,6 @@ declare module ICAL {
         * @param {String} str        The iCalendar string to parse
         */
        static fromString(str: String): void;
-
-   }
-
-   /**
-    * @classdesc
-    * The ComponentParser is used to process a String or jCal Object,
-    * firing callbacks for various found components, as well as completion.
-    *
-    * @example
-    * var options = {
-    *   // when false no events will be emitted for type
-    *   parseEvent: true,
-    *   parseTimezone: true
-    * };
-    *
-    * var parser = new ICAL.ComponentParser(options);
-    *
-    * parser.onevent(eventComponent) {
-    *   //...
-    * }
-    *
-    * // ontimezone, etc...
-    *
-    * parser.oncomplete = function() {
-    *
-    * };
-    *
-    * parser.process(stringOrComponent);
-    *
-    * @class
-    * @alias ICAL.ComponentParser
-    * @param {Object=} options        Component parser options
-    * @param {Boolean} options.parseEvent        Whether events should be parsed
-    * @param {Boolean} options.parseTimezeone    Whether timezones should be parsed
-    */
-   class ComponentParser {
-       /**
-        * @classdesc
-        * The ComponentParser is used to process a String or jCal Object,
-        * firing callbacks for various found components, as well as completion.
-        *
-        * @example
-        * var options = {
-        *   // when false no events will be emitted for type
-        *   parseEvent: true,
-        *   parseTimezone: true
-        * };
-        *
-        * var parser = new ICAL.ComponentParser(options);
-        *
-        * parser.onevent(eventComponent) {
-        *   //...
-        * }
-        *
-        * // ontimezone, etc...
-        *
-        * parser.oncomplete = function() {
-        *
-        * };
-        *
-        * parser.process(stringOrComponent);
-        *
-        * @class
-        * @alias ICAL.ComponentParser
-        * @param {Object=} options        Component parser options
-        * @param {Boolean} options.parseEvent        Whether events should be parsed
-        * @param {Boolean} options.parseTimezeone    Whether timezones should be parsed
-        */
-       constructor(options?: { parseEvent: Boolean, parseTimezeone: Boolean });
-
-       /**
-        * When true, parse events
-        *
-        * @type {Boolean}
-        */
-       parseEvent: Boolean;
-
-       /**
-        * When true, parse timezones
-        *
-        * @type {Boolean}
-        */
-       parseTimezone: Boolean;
-
-       /**
-        * Fired when parsing is complete
-        * @callback
-        */
-       type oncomplete = any;
-
-       /**
-        * Fired if an error occurs during parsing.
-        *
-        * @callback
-        * @param {Error} err details of error
-        */
-       type onerror = any;
-
-       /**
-        * Fired when a top level component (VTIMEZONE) is found
-        *
-        * @callback
-        * @param {ICAL.Timezone} component     Timezone object
-        */
-       type ontimezone = any;
-
-       /**
-        * Fired when a top level component (VEVENT) is found.
-        *
-        * @callback
-        * @param {ICAL.Event} component    Top level component
-        */
-       type onevent = any;
-
-       /**
-        * Process a string or parse ical object.  This function itself will return
-        * nothing but will start the parsing process.
-        *
-        * Events must be registered prior to calling this method.
-        *
-        * @param {ICAL.Component|String|Object} ical      The component to process,
-        *        either in its final form, as a jCal Object, or string representation
-        */
-       process(ical: (ICAL.Component|String|Object)): void;
-
-   }
-
-   /**
-    * The design data, used by the parser to determine types for properties and
-    * other metadata needed to produce correct jCard/jCal data.
-    *
-    * @alias ICAL.design
-    * @namespace
-    */
-   module design {
-       /**
-        * A designSet describes value, parameter and property data. It is used by
-        * ther parser and stringifier in components and properties to determine they
-        * should be represented.
-        *
-        * @typedef {Object} designSet
-        * @memberOf ICAL.design
-        * @property {Object} value       Definitions for value types, keys are type names
-        * @property {Object} param       Definitions for params, keys are param names
-        * @property {Object} property    Defintions for properties, keys are property names
-        */
-       interface IdesignSet {
-           value: Object;
-           param: Object;
-           property: Object;
-       }
-
-
-       /**
-        * The default set for new properties and components if none is specified.
-        * @type {ICAL.design.designSet}
-        */
-       var defaultSet: ICAL.design.designSet;
-
-       /**
-        * The default type for unknown properties
-        * @type {String}
-        */
-       var defaultType: String;
-
-       interface Icomponents {
-           vcard: ICAL.design.designSet;
-           vevent: ICAL.design.designSet;
-           vtodo: ICAL.design.designSet;
-           vjournal: ICAL.design.designSet;
-           valarm: ICAL.design.designSet;
-           vtimezone: ICAL.design.designSet;
-           daylight: ICAL.design.designSet;
-           standard: ICAL.design.designSet;
-       }
-
-       /**
-        * Holds the design set for known top-level components
-        *
-        * @type {Object}
-        * @property {ICAL.design.designSet} vcard       vCard VCARD
-        * @property {ICAL.design.designSet} vevent      iCalendar VEVENT
-        * @property {ICAL.design.designSet} vtodo       iCalendar VTODO
-        * @property {ICAL.design.designSet} vjournal    iCalendar VJOURNAL
-        * @property {ICAL.design.designSet} valarm      iCalendar VALARM
-        * @property {ICAL.design.designSet} vtimezone   iCalendar VTIMEZONE
-        * @property {ICAL.design.designSet} daylight    iCalendar DAYLIGHT
-        * @property {ICAL.design.designSet} standard    iCalendar STANDARD
-        *
-        * @example
-        * var propertyName = 'fn';
-        * var componentDesign = ICAL.design.components.vcard;
-        * var propertyDetails = componentDesign.property[propertyName];
-        * if (propertyDetails.defaultType == 'text') {
-        *   // Yep, sure is...
-        * }
-        */
-       var components: Icomponents;
-
-       /**
-        * The design set for iCalendar (rfc5545/rfc7265) components.
-        * @type {ICAL.design.designSet}
-        */
-       var icalendar: ICAL.design.designSet;
-
-       /**
-        * The design set for vCard (rfc6350/rfc7095) components.
-        * @type {ICAL.design.designSet}
-        */
-       var vcard: ICAL.design.designSet;
-
-       /**
-        * The design set for vCard (rfc2425/rfc2426/rfc7095) components.
-        * @type {ICAL.design.designSet}
-        */
-       var vcard3: ICAL.design.designSet;
-
-       /**
-        * Gets the design set for the given component name.
-        *
-        * @param {String} componentName        The name of the component
-        * @return {ICAL.design.designSet}      The design set for the component
-        */
-       function getDesignSet(componentName: String): ICAL.design.designSet;
 
    }
 
@@ -691,12 +352,12 @@ declare module ICAL {
     * {@tutorial layers} guide for more details.
     *
     * @class
-    * @alias ICAL.Event
+    * @alias Event
     * @param {ICAL.Component=} component         The ICAL.Component to base this event on
     * @param {Object} options                    Options for this event
     * @param {Boolean} options.strictExceptions
     *          When true, will verify exceptions are related by their UUID
-    * @param {Array<ICAL.Component|ICAL.Event>} options.exceptions
+    * @param {Array<ICAL.Component|Event>} options.exceptions
     *          Exceptions to this event, either as components or events
     */
    class Event {
@@ -708,22 +369,22 @@ declare module ICAL {
         * {@tutorial layers} guide for more details.
         *
         * @class
-        * @alias ICAL.Event
+        * @alias Event
         * @param {ICAL.Component=} component         The ICAL.Component to base this event on
         * @param {Object} options                    Options for this event
         * @param {Boolean} options.strictExceptions
         *          When true, will verify exceptions are related by their UUID
-        * @param {Array<ICAL.Component|ICAL.Event>} options.exceptions
+        * @param {Array<ICAL.Component|Event>} options.exceptions
         *          Exceptions to this event, either as components or events
         */
-       constructor(component?: ICAL.Component, options: { strictExceptions: Boolean, exceptions: (ICAL.Component|ICAL.Event)[] });
+       constructor(component: ICAL.Component | null, options: { strictExceptions: Boolean, exceptions: (ICAL.Component|Event)[] });
 
        /**
         * List of related event exceptions.
         *
-        * @type {ICAL.Event[]}
+        * @type {Event[]}
         */
-       exceptions: ICAL.Event[];
+       exceptions: Event[];
 
        /**
         * When true, will verify exceptions are related by their UUID.
@@ -740,9 +401,9 @@ declare module ICAL {
         * If this component is an exception it cannot have other exceptions
         * related to it.
         *
-        * @param {ICAL.Component|ICAL.Event} obj       Component or event
+        * @param {ICAL.Component|Event} obj       Component or event
         */
-       relateException(obj: (ICAL.Component|ICAL.Event)): void;
+       relateException(obj: (ICAL.Component|Event)): void;
 
        /**
         * Checks if this record is an exception and has the RANGE=THISANDFUTURE
@@ -755,10 +416,10 @@ declare module ICAL {
        /**
         * Finds the range exception nearest to the given date.
         *
-        * @param {ICAL.Time} time usually an occurrence time of an event
-        * @return {?ICAL.Event} the related event/exception or null
+        * @param {Time} time usually an occurrence time of an event
+        * @return {?Event} the related event/exception or null
         */
-       findRangeException(time: ICAL.Time): ICAL.Event;
+       findRangeException(time: Time): Event;
 
 
        /**
@@ -766,21 +427,21 @@ declare module ICAL {
         * occurrence has an exception will return the details for that exception.
         *
         * NOTE: this method is intend to be used in conjunction
-        *       with the {@link ICAL.Event#iterator iterator} method.
+        *       with the {@link Event#iterator iterator} method.
         *
-        * @param {ICAL.Time} occurrence time occurrence
-        * @return {ICAL.Event.occurrenceDetails} Information about the occurrence
+        * @param {Time} occurrence time occurrence
+        * @return {Event.occurrenceDetails} Information about the occurrence
         */
-       getOccurrenceDetails(occurrence: ICAL.Time): ICAL.Event.occurrenceDetails;
+       getOccurrenceDetails(occurrence: Time): occurrenceDetails;
 
        /**
         * Builds a recur expansion instance for a specific point in time (defaults
         * to startDate).
         *
-        * @param {ICAL.Time} startTime     Starting point for expansion
-        * @return {ICAL.RecurExpansion}    Expansion object
+        * @param {Time} startTime     Starting point for expansion
+        * @return {RecurExpansion}    Expansion object
         */
-       iterator(startTime: ICAL.Time): ICAL.RecurExpansion;
+       iterator(startTime?: Time): RecurExpansion;
 
        /**
         * Checks if the event is recurring
@@ -812,7 +473,7 @@ declare module ICAL {
         * @return {Object.<ICAL.Recur.frequencyValues, Boolean>}
         *          Object of recurrence flags
         */
-       getRecurrenceTypes(): { [k: ICAL.Recur.frequencyValues]: Boolean };
+       getRecurrenceTypes(): { [k: string]: Boolean };
 
        /**
         * The uid of this event
@@ -822,16 +483,16 @@ declare module ICAL {
 
        /**
         * The start date
-        * @type {ICAL.Time}
+        * @type {Time}
         */
-       startDate: ICAL.Time;
+       startDate: Time;
 
        /**
         * The end date. This can be the result directly from the property, or the
         * end date calculated from start date and duration.
-        * @type {ICAL.Time}
+        * @type {Time}
         */
-       endDate: ICAL.Time;
+       endDate: Time;
 
        /**
         * The duration. This can be the result directly from the property, or the
@@ -882,9 +543,9 @@ declare module ICAL {
 
        /**
         * The recurrence id for this event. See {@tutorial terminology} for details.
-        * @type {ICAL.Time}
+        * @type {Time}
         */
-       recurrenceId: ICAL.Time;
+       recurrenceId: Time;
 
        /**
         * Set/update a time property's value.
@@ -899,9 +560,9 @@ declare module ICAL {
         *  leading to invalid ICAL data...
         * @private
         * @param {String} propName     The property name
-        * @param {ICAL.Time} time      The time to set
+        * @param {Time} time      The time to set
         */
-       private _setTime(propName: String, time: ICAL.Time): void;
+       private _setTime(propName: String, time: Time): void;
 
        /**
         * The string representation of this event.
@@ -909,6 +570,13 @@ declare module ICAL {
         */
        toString(): String;
 
+   }
+
+   interface occurrenceDetails {
+       recurrenceId: Time;
+       item: Event;
+       startDate: Time;
+       endDate: Time;
    }
 
    /**
@@ -953,22 +621,22 @@ declare module ICAL {
         * data if the data is not already an instance of the given type.
         *
         * @example
-        * var time = new ICAL.Time(...);
-        * var result = ICAL.helpers.formatClassType(time, ICAL.Time);
+        * var time = new Time(...);
+        * var result = ICAL.helpers.formatClassType(time, Time);
         *
-        * (result instanceof ICAL.Time)
+        * (result instanceof Time)
         * // => true
         *
-        * result = ICAL.helpers.formatClassType({}, ICAL.Time);
-        * (result isntanceof ICAL.Time)
+        * result = ICAL.helpers.formatClassType({}, Time);
+        * (result isntanceof Time)
         * // => true
         *
         *
         * @param {Object} data       object initialization data
-        * @param {Object} type       object type (like ICAL.Time)
+        * @param {Object} type       object type (like Time)
         * @return {?}                An instance of the found type.
         */
-       function formatClassType(data: Object, type: Object): ?;
+       function formatClassType(data: Object, type: Object): any;
 
        /**
         * Identical to indexOf but will only match values when they are not preceded
@@ -990,7 +658,7 @@ declare module ICAL {
         *                                  compare two seekVals
         * @return {Number}               The insert position
         */
-       function binsearchInsert(list: Array, seekVal: ?, cmpfunc: (() => any)): Number;
+       function binsearchInsert<T>(list: T[], seekVal: T, cmpfunc: (() => any)): Number;
 
        /**
         * Convenience function for debug output
@@ -1068,147 +736,6 @@ declare module ICAL {
    }
 
    /**
-    * Contains various functions to parse iCalendar and vCard data.
-    * @namespace
-    */
-   module parse {
-       /**
-        * An error that occurred during parsing.
-        *
-        * @param {String} message        The error message
-        * @memberof ICAL.parse
-        * @extends {Error}
-        * @class
-        */
-       class ParserError extends Error {
-           /**
-            * An error that occurred during parsing.
-            *
-            * @param {String} message        The error message
-            * @memberof ICAL.parse
-            * @extends {Error}
-            * @class
-            */
-           constructor(message: String);
-
-       }
-
-       /**
-        * Parse an iCalendar property value into the jCal for a single property
-        *
-        * @function ICAL.parse.property
-        * @param {String} str
-        *   The iCalendar property string to parse
-        * @param {ICAL.design.designSet=} designSet
-        *   The design data to use for this property
-        * @return {Object}
-        *   The jCal Object containing the property
-        */
-       function property(str: String, designSet?: ICAL.design.designSet): Object;
-
-       /**
-        * Convenience method to parse a component. You can use ICAL.parse() directly
-        * instead.
-        *
-        * @function ICAL.parse.component
-        * @see ICAL.parse(function)
-        * @param {String} str    The iCalendar component string to parse
-        * @return {Object}       The jCal Object containing the component
-        */
-       function component(str: String): Object;
-
-       /**
-        * The state for parsing content lines from an iCalendar/vCard string.
-        *
-        * @private
-        * @memberof ICAL.parse
-        * @typedef {Object} parserState
-        * @property {ICAL.design.designSet} designSet    The design set to use for parsing
-        * @property {ICAL.Component[]} stack             The stack of components being processed
-        * @property {ICAL.Component} component           The currently active component
-        */
-       interface IparserState {
-           designSet: ICAL.design.designSet;
-           stack: ICAL.Component[];
-           component: ICAL.Component;
-       }
-
-
-       /**
-        * Handles a single line of iCalendar/vCard, updating the state.
-        *
-        * @private
-        * @function ICAL.parse._handleContentLine
-        * @param {String} line               The content line to process
-        * @param {ICAL.parse.parserState}    The current state of the line parsing
-        */
-       function _handleContentLine(line: String, The: ICAL.parse.parserState): void;
-
-       /**
-        * Parse a value from the raw value into the jCard/jCal value.
-        *
-        * @private
-        * @function ICAL.parse._parseValue
-        * @param {String} value          Original value
-        * @param {String} type           Type of value
-        * @param {Object} designSet      The design data to use for this value
-        * @return {Object} varies on type
-        */
-       function _parseValue(value: String, type: String, designSet: Object): Object;
-
-       /**
-        * Parse parameters from a string to object.
-        *
-        * @function ICAL.parse._parseParameters
-        * @private
-        * @param {String} line           A single unfolded line
-        * @param {Numeric} start         Position to start looking for properties
-        * @param {Object} designSet      The design data to use for this property
-        * @return {Object} key/value pairs
-        */
-       function _parseParameters(line: String, start: Numeric, designSet: Object): Object;
-
-       /**
-        * Internal helper for rfc6868. Exposing this on ICAL.parse so that
-        * hackers can disable the rfc6868 parsing if the really need to.
-        *
-        * @function ICAL.parse._rfc6868Escape
-        * @param {String} val        The value to escape
-        * @return {String}           The escaped value
-        */
-       function _rfc6868Escape(val: String): String;
-
-       /**
-        * Parse a multi value string. This function is used either for parsing
-        * actual multi-value property's values, or for handling parameter values. It
-        * can be used for both multi-value properties and structured value properties.
-        *
-        * @private
-        * @function ICAL.parse._parseMultiValue
-        * @param {String} buffer     The buffer containing the full value
-        * @param {String} delim      The multi-value delimiter
-        * @param {String} type       The value type to be parsed
-        * @param {Array.<?>} result        The array to append results to, varies on value type
-        * @param {String} innerMulti The inner delimiter to split each value with
-        * @param {ICAL.design.designSet} designSet   The design data for this value
-        * @return {?|Array.<?>}            Either an array of results, or the first result
-        */
-       function _parseMultiValue(buffer: String, delim: String, type: String, result: ?[], innerMulti: String, designSet: ICAL.design.designSet): (?|?[]);
-
-       /**
-        * Process a complete buffer of iCalendar/vCard data line by line, correctly
-        * unfolding content. Each line will be processed with the given callback
-        *
-        * @private
-        * @function ICAL.parse._eachLine
-        * @param {String} buffer                         The buffer to process
-        * @param {function(?String, String)} callback    The callback for each line
-        */
-       function _eachLine(buffer: String, callback: (() => any)): void;
-
-   }
-
-   /**
     * Parses iCalendar or vCard data into a raw jCal object. Consult
     * documentation on the {@tutorial layers|layers of parsing} for more
     * details.
@@ -1231,8 +758,8 @@ declare module ICAL {
     *
     * @class
     * @param {Object} aData                  An object with members of the period
-    * @param {ICAL.Time=} aData.start        The start of the period
-    * @param {ICAL.Time=} aData.end          The end of the period
+    * @param {Time=} aData.start        The start of the period
+    * @param {Time=} aData.end          The end of the period
     * @param {ICAL.Duration=} aData.duration The duration of the period
     */
    class Period {
@@ -1246,23 +773,23 @@ declare module ICAL {
         *
         * @class
         * @param {Object} aData                  An object with members of the period
-        * @param {ICAL.Time=} aData.start        The start of the period
-        * @param {ICAL.Time=} aData.end          The end of the period
+        * @param {Time=} aData.start        The start of the period
+        * @param {Time=} aData.end          The end of the period
         * @param {ICAL.Duration=} aData.duration The duration of the period
         */
-       constructor(aData: { start: ICAL.Time, end: ICAL.Time, duration: ICAL.Duration });
+       constructor(aData: { start: Time, end: Time, duration: ICAL.Duration });
 
        /**
         * The start of the period
-        * @type {ICAL.Time}
+        * @type {Time}
         */
-       start: ICAL.Time;
+       start: Time;
 
        /**
         * The end of the period
-        * @type {ICAL.Time}
+        * @type {Time}
         */
-       end: ICAL.Time;
+       end: Time;
 
        /**
         * The duration of the period
@@ -1305,9 +832,9 @@ declare module ICAL {
         * Calculates the end date of the period, either directly or by adding
         * duration to start date.
         *
-        * @return {ICAL.Time}          The calculated end date
+        * @return {Time}          The calculated end date
         */
-       getEnd(): ICAL.Time;
+       getEnd(): Time;
 
        /**
         * The string representation of this period.
@@ -1341,12 +868,12 @@ declare module ICAL {
         * The passed data object cannot contain both and end date and a duration.
         *
         * @param {Object} aData                  An object with members of the period
-        * @param {ICAL.Time=} aData.start        The start of the period
-        * @param {ICAL.Time=} aData.end          The end of the period
+        * @param {Time=} aData.start        The start of the period
+        * @param {Time=} aData.end          The end of the period
         * @param {ICAL.Duration=} aData.duration The duration of the period
         * @return {ICAL.Period}                  The period instance
         */
-       static fromData(aData: { start: ICAL.Time, end: ICAL.Time, duration: ICAL.Duration }): ICAL.Period;
+       static fromData(aData: { start: Time, end: Time, duration: ICAL.Duration }): ICAL.Period;
 
        /**
         * Returns a new period instance from the given jCal data array. The first
@@ -1357,7 +884,7 @@ declare module ICAL {
         * @param {ICAL.Property} aProp           The property this jCal data is on
         * @return {ICAL.Period}                  The period instance
         */
-       static fromJSON(aData: String, String[], aProp: ICAL.Property): ICAL.Period;
+       static fromJSON(aData: [string, string][], aProp: ICAL.Property): ICAL.Period;
 
    }
 
@@ -1400,7 +927,7 @@ declare module ICAL {
         *
         * @param {ICAL.Component=} parent    Parent component
         */
-       constructor(jCal: (Array|String), parent?: ICAL.Component);
+       constructor(jCal: any[]|string, parent?: ICAL.Component);
 
        /**
         * The value type for this property
@@ -1423,66 +950,12 @@ declare module ICAL {
        parent: ICAL.Component;
 
        /**
-        * The design set for this property, e.g. icalendar vs vcard
-        *
-        * @type {ICAL.design.designSet}
-        * @private
-        */
-       private _designSet: ICAL.design.designSet;
-
-       /**
-        * Updates the type metadata from the current jCal type and design set.
-        *
-        * @private
-        */
-       private _updateType(): void;
-
-       /**
-        * Hydrate a single value. The act of hydrating means turning the raw jCal
-        * value into a potentially wrapped object, for example {@link ICAL.Time}.
-        *
-        * @private
-        * @param {Number} index        The index of the value to hydrate
-        * @return {Object}             The decorated value.
-        */
-       private _hydrateValue(index: Number): Object;
-
-       /**
-        * Decorate a single value, returning its wrapped object. This is used by
-        * the hydrate function to actually wrap the value.
-        *
-        * @private
-        * @param {?} value         The value to decorate
-        * @return {Object}         The decorated value
-        */
-       private _decorate(value: ?): Object;
-
-       /**
-        * Undecorate a single value, returning its raw jCal data.
-        *
-        * @private
-        * @param {Object} value         The value to undecorate
-        * @return {?}                   The undecorated value
-        */
-       private _undecorate(value: Object): ?;
-
-       /**
-        * Sets the value at the given index while also hydrating it. The passed
-        * value can either be a decorated or undecorated value.
-        *
-        * @private
-        * @param {?} value             The value to set
-        * @param {Number} index        The index to set it at
-        */
-       private _setDecoratedValue(value: ?, index: Number): void;
-
-       /**
         * Gets a parameter on the property.
         *
         * @param {String}        name   Property name (lowercase)
         * @return {Array|String}        Property value
         */
-       getParameter(name: String): (Array|String);
+       getParameter(name: String): (any[]|String);
 
        /**
         * Sets a parameter on the property.
@@ -1490,7 +963,7 @@ declare module ICAL {
         * @param {String}       name     The parameter name
         * @param {Array|String} value    The parameter value
         */
-       setParameter(name: String, value: (Array|String)): void;
+       setParameter(name: String, value: (any[]|String)): void;
 
        /**
         * Removes a parameter
@@ -1528,7 +1001,7 @@ declare module ICAL {
         *
         * @return {Array}          List of values
         */
-       getValues(): Array;
+       getValues(): any[];
 
        /**
         * Removes all values from this property
@@ -1541,7 +1014,7 @@ declare module ICAL {
         *
         * @param {Array} values    An array of values
         */
-       setValues(values: Array): void;
+       setValues(values: any[]): void;
 
        /**
         * Sets the current value of the property. If this is a multi-value
@@ -1571,7 +1044,7 @@ declare module ICAL {
         * @param {ICAL.design.designSet=} designSet  The design data to use for this property
         * @return {ICAL.Property}                    The created iCalendar property
         */
-       static fromString(str: String, designSet?: ICAL.design.designSet): ICAL.Property;
+       static fromString(str: String, designSet?: any): ICAL.Property;
 
    }
 
@@ -1583,10 +1056,10 @@ declare module ICAL {
     * @class
     * @alias ICAL.Recur
     * @param {Object} data                       An object with members of the recurrence
-    * @param {ICAL.Recur.frequencyValues} freq   The frequency value
+    * @param {frequencyValues} freq   The frequency value
     * @param {Number=} data.interval             The INTERVAL value
-    * @param {ICAL.Time.weekDay=} data.wkst      The week start value
-    * @param {ICAL.Time=} data.until             The end of the recurrence set
+    * @param {weekDay=} data.wkst      The week start value
+    * @param {Time=} data.until             The end of the recurrence set
     * @param {Number=} data.count                The number of occurrences
     * @param {Array.<Number>=} data.bysecond     The seconds for the BYSECOND part
     * @param {Array.<Number>=} data.byminute     The minutes for the BYMINUTE part
@@ -1607,10 +1080,10 @@ declare module ICAL {
         * @class
         * @alias ICAL.Recur
         * @param {Object} data                       An object with members of the recurrence
-        * @param {ICAL.Recur.frequencyValues} freq   The frequency value
+        * @param {frequencyValues} freq   The frequency value
         * @param {Number=} data.interval             The INTERVAL value
-        * @param {ICAL.Time.weekDay=} data.wkst      The week start value
-        * @param {ICAL.Time=} data.until             The end of the recurrence set
+        * @param {weekDay=} data.wkst      The week start value
+        * @param {Time=} data.until             The end of the recurrence set
         * @param {Number=} data.count                The number of occurrences
         * @param {Array.<Number>=} data.bysecond     The seconds for the BYSECOND part
         * @param {Array.<Number>=} data.byminute     The minutes for the BYMINUTE part
@@ -1622,7 +1095,7 @@ declare module ICAL {
         * @param {Array.<Number>=} data.bymonth      The month for the BYMONTH part
         * @param {Array.<Number>=} data.bysetpos     The positionals for the BYSETPOS part
         */
-       constructor(data: { interval: Number, wkst: ICAL.Time.weekDay, until: ICAL.Time, count: Number, bysecond: Number[], byminute: Number[], byhour: Number[], byday: String[], bymonthday: Number[], byyearday: Number[], byweekno: Number[], bymonth: Number[], bysetpos: Number[] }, freq: ICAL.Recur.frequencyValues);
+       constructor(data: { interval: Number, wkst: weekDay, until: Time, count: Number, bysecond: Number[], byminute: Number[], byhour: Number[], byday: String[], bymonthday: Number[], byyearday: Number[], byweekno: Number[], bymonth: Number[], bysetpos: Number[] }, freq: frequencyValues);
 
        /**
         * An object holding the BY-parts of the recurrence rule
@@ -1639,16 +1112,16 @@ declare module ICAL {
        /**
         * The week start day
         *
-        * @type {ICAL.Time.weekDay}
-        * @default ICAL.Time.MONDAY
+        * @type {weekDay}
+        * @default Time.MONDAY
         */
-       wkst: ICAL.Time.weekDay;
+       wkst: weekDay;
 
        /**
         * The end of the recurrence
-        * @type {?ICAL.Time}
+        * @type {?Time}
         */
-       until: ICAL.Time;
+       until: Time;
 
        /**
         * The maximum number of occurrences
@@ -1660,7 +1133,7 @@ declare module ICAL {
         * The frequency value.
         * @type {ICAL.Recur.frequencyValues}
         */
-       freq: ICAL.Recur.frequencyValues;
+       freq: frequencyValues;
 
        /**
         * The class identifier.
@@ -1694,10 +1167,10 @@ declare module ICAL {
         *   console.log(next.toString());
         * }
         *
-        * @param {ICAL.Time} aStart        The item's start date
+        * @param {Time} aStart        The item's start date
         * @return {ICAL.RecurIterator}     The recurrence iterator
         */
-       iterator(aStart: ICAL.Time): ICAL.RecurIterator;
+       iterator(aStart: Time): ICAL.RecurIterator;
 
        /**
         * Returns a clone of the recurrence object.
@@ -1729,7 +1202,7 @@ declare module ICAL {
         * @param {String} aType            The name of the component part
         * @param {Array|String} aValue     The component value
         */
-       addComponent(aType: String, aValue: (Array|String)): void;
+       addComponent(aType: String, aValue: (any[]|String)): void;
 
        /**
         * Sets the component value for the given by-part.
@@ -1737,7 +1210,7 @@ declare module ICAL {
         * @param {String} aType        The component part name
         * @param {Array} aValues       The component values
         */
-       setComponent(aType: String, aValues: Array): void;
+       setComponent(aType: String, aValues: any[]): void;
 
        /**
         * Gets (a copy) of the requested component value.
@@ -1745,7 +1218,7 @@ declare module ICAL {
         * @param {String} aType        The component part name
         * @return {Array}              The component part value
         */
-       getComponent(aType: String): Array;
+       getComponent(aType: String): any[];
 
        /**
         * Retrieves the next occurrence after the given recurrence id. See the
@@ -1757,11 +1230,11 @@ declare module ICAL {
         * occurrences manually, see the example on the
         * {@link ICAL.Recur#iterator iterator} method.
         *
-        * @param {ICAL.Time} aStartTime        The start of the event series
-        * @param {ICAL.Time} aRecurrenceId     The date of the last occurrence
-        * @return {ICAL.Time}                  The next occurrence after
+        * @param {Time} aStartTime        The start of the event series
+        * @param {Time} aRecurrenceId     The date of the last occurrence
+        * @return {Time}                  The next occurrence after
         */
-       getNextOccurrence(aStartTime: ICAL.Time, aRecurrenceId: ICAL.Time): ICAL.Time;
+       getNextOccurrence(aStartTime: Time, aRecurrenceId: Time): Time;
 
        /**
         * Sets up the current instance using members from the passed data object.
@@ -1769,8 +1242,8 @@ declare module ICAL {
         * @param {Object} data                       An object with members of the recurrence
         * @param {ICAL.Recur.frequencyValues} freq   The frequency value
         * @param {Number=} data.interval             The INTERVAL value
-        * @param {ICAL.Time.weekDay=} data.wkst      The week start value
-        * @param {ICAL.Time=} data.until             The end of the recurrence set
+        * @param {weekDay=} data.wkst      The week start value
+        * @param {Time=} data.until             The end of the recurrence set
         * @param {Number=} data.count                The number of occurrences
         * @param {Array.<Number>=} data.bysecond     The seconds for the BYSECOND part
         * @param {Array.<Number>=} data.byminute     The minutes for the BYMINUTE part
@@ -1782,7 +1255,7 @@ declare module ICAL {
         * @param {Array.<Number>=} data.bymonth      The month for the BYMONTH part
         * @param {Array.<Number>=} data.bysetpos     The positionals for the BYSETPOS part
         */
-       fromData(data: { interval: Number, wkst: ICAL.Time.weekDay, until: ICAL.Time, count: Number, bysecond: Number[], byminute: Number[], byhour: Number[], byday: String[], bymonthday: Number[], byyearday: Number[], byweekno: Number[], bymonth: Number[], bysetpos: Number[] }, freq: ICAL.Recur.frequencyValues): void;
+       fromData(data: { interval: Number, wkst: weekDay, until: Time, count: Number, bysecond: Number[], byminute: Number[], byhour: Number[], byday: String[], bymonthday: Number[], byyearday: Number[], byweekno: Number[], bymonth: Number[], bysetpos: Number[] }, freq: frequencyValues): void;
 
        /**
         * The jCal representation of this recurrence type.
@@ -1814,15 +1287,6 @@ declare module ICAL {
        static numericDayToIcalDay(num: Number): String;
 
        /**
-        * Possible frequency values for the FREQ part
-        * (YEARLY, MONTHLY, WEEKLY, DAILY, HOURLY, MINUTELY, SECONDLY)
-        *
-        * @typedef {String} frequencyValues
-        * @memberof ICAL.Recur
-        */
-       type frequencyValues = String;
-
-       /**
         * Creates a new {@link ICAL.Recur} instance from the passed string.
         *
         * @param {String} string         The string to parse
@@ -1835,10 +1299,10 @@ declare module ICAL {
         * data object.
         *
         * @param {Object} aData                      An object with members of the recurrence
-        * @param {ICAL.Recur.frequencyValues} freq   The frequency value
+        * @param {frequencyValues} freq   The frequency value
         * @param {Number=} aData.interval            The INTERVAL value
-        * @param {ICAL.Time.weekDay=} aData.wkst     The week start value
-        * @param {ICAL.Time=} aData.until            The end of the recurrence set
+        * @param {weekDay=} aData.wkst     The week start value
+        * @param {Time=} aData.until            The end of the recurrence set
         * @param {Number=} aData.count               The number of occurrences
         * @param {Array.<Number>=} aData.bysecond    The seconds for the BYSECOND part
         * @param {Array.<Number>=} aData.byminute    The minutes for the BYMINUTE part
@@ -1850,7 +1314,7 @@ declare module ICAL {
         * @param {Array.<Number>=} aData.bymonth     The month for the BYMONTH part
         * @param {Array.<Number>=} aData.bysetpos    The positionals for the BYSETPOS part
         */
-       static fromData(aData: { interval: Number, wkst: ICAL.Time.weekDay, until: ICAL.Time, count: Number, bysecond: Number[], byminute: Number[], byhour: Number[], byday: String[], bymonthday: Number[], byyearday: Number[], byweekno: Number[], bymonth: Number[], bysetpos: Number[] }, freq: ICAL.Recur.frequencyValues): void;
+       static fromData(aData: { interval: Number, wkst: weekDay, until: Time, count: Number, bysecond: Number[], byminute: Number[], byhour: Number[], byday: String[], bymonthday: Number[], byyearday: Number[], byweekno: Number[], bymonth: Number[], bysetpos: Number[] }, freq: frequencyValues): void;
 
        /**
         * Converts a recurrence string to a data object, suitable for the fromData
@@ -1865,6 +1329,15 @@ declare module ICAL {
 
    }
 
+    /**
+    * Possible frequency values for the FREQ part
+    * (YEARLY, MONTHLY, WEEKLY, DAILY, HOURLY, MINUTELY, SECONDLY)
+    *
+    * @typedef {String} frequencyValues
+    * @memberof ICAL.Recur
+    */
+    type frequencyValues = string;
+
    /**
     * @classdesc
     * Primary class for expanding recurring rules.  Can take multiple rrules,
@@ -1874,13 +1347,13 @@ declare module ICAL {
     * iteration from the last point.
     *
     * NOTE: it is intended that this class is to be used
-    *       with ICAL.Event which handles recurrence exceptions.
+    *       with Event which handles recurrence exceptions.
     *
     * @example
     * // assuming event is a parsed ical component
     * var event;
     *
-    * var expand = new ICAL.RecurExpansion({
+    * var expand = new RecurExpansion({
     *   component: event,
     *   dtstart: event.getFirstPropertyValue('dtstart')
     * });
@@ -1889,7 +1362,7 @@ declare module ICAL {
     * // so its a good idea to limit the scope
     * // of the iterations then resume later on.
     *
-    * // next is always an ICAL.Time or null
+    * // next is always an Time or null
     * var next;
     *
     * while (someCondition && (next = expand.next())) {
@@ -1905,7 +1378,7 @@ declare module ICAL {
     * //       changed you will need to rebuild the
     * //       class and start over. This only works
     * //       when the component's recurrence info is the same.
-    * var expand = new ICAL.RecurExpansion(JSON.parse(json));
+    * var expand = new RecurExpansion(JSON.parse(json));
     *
     * @description
     * The options object can be filled with the specified initial values. It can
@@ -1913,10 +1386,10 @@ declare module ICAL {
     * expansion state, as shown in the example.
     *
     * @class
-    * @alias ICAL.RecurExpansion
+    * @alias RecurExpansion
     * @param {Object} options
     *        Recurrence expansion options
-    * @param {ICAL.Time} options.dtstart
+    * @param {Time} options.dtstart
     *        Start time of the event
     * @param {ICAL.Component=} options.component
     *        Component for expansion, required if not resuming.
@@ -1931,13 +1404,13 @@ declare module ICAL {
         * iteration from the last point.
         *
         * NOTE: it is intended that this class is to be used
-        *       with ICAL.Event which handles recurrence exceptions.
+        *       with Event which handles recurrence exceptions.
         *
         * @example
         * // assuming event is a parsed ical component
         * var event;
         *
-        * var expand = new ICAL.RecurExpansion({
+        * var expand = new RecurExpansion({
         *   component: event,
         *   dtstart: event.getFirstPropertyValue('dtstart')
         * });
@@ -1946,7 +1419,7 @@ declare module ICAL {
         * // so its a good idea to limit the scope
         * // of the iterations then resume later on.
         *
-        * // next is always an ICAL.Time or null
+        * // next is always an Time or null
         * var next;
         *
         * while (someCondition && (next = expand.next())) {
@@ -1962,7 +1435,7 @@ declare module ICAL {
         * //       changed you will need to rebuild the
         * //       class and start over. This only works
         * //       when the component's recurrence info is the same.
-        * var expand = new ICAL.RecurExpansion(JSON.parse(json));
+        * var expand = new RecurExpansion(JSON.parse(json));
         *
         * @description
         * The options object can be filled with the specified initial values. It can
@@ -1970,15 +1443,15 @@ declare module ICAL {
         * expansion state, as shown in the example.
         *
         * @class
-        * @alias ICAL.RecurExpansion
+        * @alias RecurExpansion
         * @param {Object} options
         *        Recurrence expansion options
-        * @param {ICAL.Time} options.dtstart
+        * @param {Time} options.dtstart
         *        Start time of the event
         * @param {ICAL.Component=} options.component
         *        Component for expansion, required if not resuming.
         */
-       constructor(options: { dtstart: ICAL.Time, component: ICAL.Component });
+       constructor(options: { dtstart: Time, component: ICAL.Component });
 
        /**
         * True when iteration is fully completed.
@@ -1997,18 +1470,18 @@ declare module ICAL {
        /**
         * Array of rdate instances.
         *
-        * @type {ICAL.Time[]}
+        * @type {Time[]}
         * @private
         */
-       private ruleDates: ICAL.Time[];
+       private ruleDates: Time[];
 
        /**
         * Array of exdate instances.
         *
-        * @type {ICAL.Time[]}
+        * @type {Time[]}
         * @private
         */
-       private exDates: ICAL.Time[];
+       private exDates: Time[];
 
        /**
         * Current position in ruleDates array.
@@ -2027,52 +1500,52 @@ declare module ICAL {
        /**
         * Current negative date.
         *
-        * @type {ICAL.Time}
+        * @type {Time}
         * @private
         */
-       private exDate: ICAL.Time;
+       private exDate: Time;
 
        /**
         * Current additional date.
         *
-        * @type {ICAL.Time}
+        * @type {Time}
         * @private
         */
-       private ruleDate: ICAL.Time;
+       private ruleDate: Time;
 
        /**
         * Start date of recurring rules.
         *
-        * @type {ICAL.Time}
+        * @type {Time}
         */
-       dtstart: ICAL.Time;
+       dtstart: Time;
 
        /**
         * Last expanded time
         *
-        * @type {ICAL.Time}
+        * @type {Time}
         */
-       last: ICAL.Time;
+       last: Time;
 
        /**
         * Initialize the recurrence expansion from the data object. The options
         * object may also contain additional members, see the
-        * {@link ICAL.RecurExpansion constructor} for more details.
+        * {@link RecurExpansion constructor} for more details.
         *
         * @param {Object} options
         *        Recurrence expansion options
-        * @param {ICAL.Time} options.dtstart
+        * @param {Time} options.dtstart
         *        Start time of the event
         * @param {ICAL.Component=} options.component
         *        Component for expansion, required if not resuming.
         */
-       fromData(options: { dtstart: ICAL.Time, component: ICAL.Component }): void;
+       fromData(options: { dtstart: Time, component: ICAL.Component }): void;
 
        /**
         * Retrieve the next occurrence in the series.
-        * @return {ICAL.Time}
+        * @return {Time}
         */
-       next(): ICAL.Time;
+       next(): Time;
 
        /**
         * Converts object into a serialize-able format. This format can be passed
@@ -2088,9 +1561,9 @@ declare module ICAL {
         * @private
         * @param {ICAL.Component} component        The component to search in
         * @param {String} propertyName             The property name to search for
-        * @return {ICAL.Time[]}                    The extracted dates.
+        * @return {Time[]}                    The extracted dates.
         */
-       private _extractDates(component: ICAL.Component, propertyName: String): ICAL.Time[];
+       private _extractDates(component: ICAL.Component, propertyName: String): Time[];
 
        /**
         * Initialize the recurrence expansion.
@@ -2140,7 +1613,7 @@ declare module ICAL {
     * @alias ICAL.RecurIterator
     * @param {Object} options                The iterator options
     * @param {ICAL.Recur} options.rule       The rule to iterate.
-    * @param {ICAL.Time} options.dtstart     The start date of the event.
+    * @param {Time} options.dtstart     The start date of the event.
     * @param {Boolean=} options.initialized  When true, assume that options are
     *        from a previously constructed iterator. Initialization will not be
     *        repeated.
@@ -2163,12 +1636,12 @@ declare module ICAL {
         * @alias ICAL.RecurIterator
         * @param {Object} options                The iterator options
         * @param {ICAL.Recur} options.rule       The rule to iterate.
-        * @param {ICAL.Time} options.dtstart     The start date of the event.
+        * @param {Time} options.dtstart     The start date of the event.
         * @param {Boolean=} options.initialized  When true, assume that options are
         *        from a previously constructed iterator. Initialization will not be
         *        repeated.
         */
-       constructor(options: { rule: ICAL.Recur, dtstart: ICAL.Time, initialized: Boolean });
+       constructor(options: { rule: ICAL.Recur, dtstart: Time, initialized: Boolean });
 
        /**
         * True when iteration is finished.
@@ -2184,16 +1657,16 @@ declare module ICAL {
 
        /**
         * The start date of the event being iterated.
-        * @type {ICAL.Time}
+        * @type {Time}
         */
-       dtstart: ICAL.Time;
+       dtstart: Time;
 
        /**
         * The last occurrence that was returned from the
         * {@link ICAL.RecurIterator#next} method.
-        * @type {ICAL.Time}
+        * @type {Time}
         */
-       last: ICAL.Time;
+       last: Time;
 
        /**
         * The sequence number from the occurrence
@@ -2227,7 +1700,7 @@ declare module ICAL {
         * @type {Array}
         * @private
         */
-       private days: Array;
+       private days: any[];
 
        /**
         * The index in the {@link ICAL.RecurIterator#days} array.
@@ -2243,12 +1716,12 @@ declare module ICAL {
         *
         * @param {Object} options                The iterator options
         * @param {ICAL.Recur} options.rule       The rule to iterate.
-        * @param {ICAL.Time} options.dtstart     The start date of the event.
+        * @param {Time} options.dtstart     The start date of the event.
         * @param {Boolean=} options.initialized  When true, assume that options are
         *        from a previously constructed iterator. Initialization will not be
         *        repeated.
         */
-       fromData(options: { rule: ICAL.Recur, dtstart: ICAL.Time, initialized: Boolean }): void;
+       fromData(options: { rule: ICAL.Recur, dtstart: Time, initialized: Boolean }): void;
 
        /**
         * Intialize the iterator
@@ -2258,9 +1731,9 @@ declare module ICAL {
 
        /**
         * Retrieve the next occurrence from the iterator.
-        * @return {ICAL.Time}
+        * @return {Time}
         */
-       next(): ICAL.Time;
+       next(): Time;
 
        /**
         * Normalize each by day rule for a given year/month.
@@ -2275,7 +1748,7 @@ declare module ICAL {
         *                 Negative rules will be expanded to their
         *                 correct positive values for easier processing.
         */
-       private normalizeByMonthDayRules(year: Number, month: Number, rules: Array): Array;
+       private normalizeByMonthDayRules(year: Number, month: Number, rules: any[]): any[];
 
        /**
         * NOTES:
@@ -2297,7 +1770,7 @@ declare module ICAL {
         * @return {Boolean} false unless BYSETPOS rules exist
         *                   and the given value is present in rules.
         */
-       private check_set_position(aPos: Numeric): Boolean;
+       private check_set_position(aPos: number): boolean;
 
        /**
         * Convert iterator into a serialize-able object.  Will preserve current
@@ -2310,88 +1783,6 @@ declare module ICAL {
    }
 
    /**
-    * Contains various functions to convert jCal and jCard data back into
-    * iCalendar and vCard.
-    * @namespace
-    */
-   module stringify {
-       /**
-        * Converts an jCal component array into a ICAL string.
-        * Recursive will resolve sub-components.
-        *
-        * Exact component/property order is not saved all
-        * properties will come before subcomponents.
-        *
-        * @function ICAL.stringify.component
-        * @param {Array} component
-        *        jCal/jCard fragment of a component
-        * @param {ICAL.design.designSet} designSet
-        *        The design data to use for this component
-        * @return {String}       The iCalendar/vCard string
-        */
-       function component(component: Array, designSet: ICAL.design.designSet): String;
-
-       /**
-        * Converts a single jCal/jCard property to a iCalendar/vCard string.
-        *
-        * @function ICAL.stringify.property
-        * @param {Array} property
-        *        jCal/jCard property array
-        * @param {ICAL.design.designSet} designSet
-        *        The design data to use for this property
-        * @param {Boolean} noFold
-        *        If true, the line is not folded
-        * @return {String}       The iCalendar/vCard string
-        */
-       function property(property: Array, designSet: ICAL.design.designSet, noFold: Boolean): String;
-
-       /**
-        * Handles escaping of property values that may contain:
-        *
-        *    COLON (:), SEMICOLON (;), or COMMA (,)
-        *
-        * If any of the above are present the result is wrapped
-        * in double quotes.
-        *
-        * @function ICAL.stringify.propertyValue
-        * @param {String} value      Raw property value
-        * @return {String}           Given or escaped value when needed
-        */
-       function propertyValue(value: String): String;
-
-       /**
-        * Converts an array of ical values into a single
-        * string based on a type and a delimiter value (like ",").
-        *
-        * @function ICAL.stringify.multiValue
-        * @param {Array} values      List of values to convert
-        * @param {String} delim      Used to join the values (",", ";", ":")
-        * @param {String} type       Lowecase ical value type
-        *        (like boolean, date-time, etc..)
-        * @param {?String} innerMulti If set, each value will again be processed
-        *        Used for structured values
-        * @param {ICAL.design.designSet} designSet
-        *        The design data to use for this property
-        *
-        * @return {String}           iCalendar/vCard string for value
-        */
-       function multiValue(values: Array, delim: String, type: String, innerMulti?: String, designSet: ICAL.design.designSet): String;
-
-       /**
-        * Processes a single ical value runs the associated "toICAL" method from the
-        * design value type if available to convert the value.
-        *
-        * @function ICAL.stringify.value
-        * @param {String|Number} value       A formatted value
-        * @param {String} type               Lowercase iCalendar/vCard value type
-        *  (like boolean, date-time, etc..)
-        * @return {String}                   iCalendar/vCard value for single value
-        */
-       function value(value: (String|Number), type: String): String;
-
-   }
-
-   /**
     * Convert a full jCal/jCard array into a iCalendar/vCard string.
     *
     * @function ICAL.stringify
@@ -2399,7 +1790,7 @@ declare module ICAL {
     * @param {Array} jCal    The jCal/jCard document
     * @return {String}       The stringified iCalendar/vCard document
     */
-   function stringify(jCal: Array): String;
+   function stringify(jCal: any[]): String;
 
    /**
     * @classdesc
@@ -2408,7 +1799,7 @@ declare module ICAL {
     * January is 1, not zero.
     *
     * @example
-    * var time = new ICAL.Time({
+    * var time = new Time({
     *   year: 2012,
     *   month: 10,
     *   day: 11
@@ -2418,7 +1809,7 @@ declare module ICAL {
     * });
     *
     *
-    * @alias ICAL.Time
+    * @alias Time
     * @class
     * @param {Object} data           Time initialization
     * @param {Number=} data.year     The year for this date
@@ -2429,7 +1820,7 @@ declare module ICAL {
     * @param {Number=} data.second   The second for this date
     * @param {Boolean=} data.isDate  If true, the instance represents a date (as
     *                                  opposed to a date-time)
-    * @param {ICAL.Timezone} zone timezone this position occurs in
+    * @param {Timezone} zone timezone this position occurs in
     */
    class Time {
        /**
@@ -2439,7 +1830,7 @@ declare module ICAL {
         * January is 1, not zero.
         *
         * @example
-        * var time = new ICAL.Time({
+        * var time = new Time({
         *   year: 2012,
         *   month: 10,
         *   day: 11
@@ -2449,7 +1840,7 @@ declare module ICAL {
         * });
         *
         *
-        * @alias ICAL.Time
+        * @alias Time
         * @class
         * @param {Object} data           Time initialization
         * @param {Number=} data.year     The year for this date
@@ -2460,9 +1851,9 @@ declare module ICAL {
         * @param {Number=} data.second   The second for this date
         * @param {Boolean=} data.isDate  If true, the instance represents a date (as
         *                                  opposed to a date-time)
-        * @param {ICAL.Timezone} zone timezone this position occurs in
+        * @param {Timezone} zone timezone this position occurs in
         */
-       constructor(data: { year: Number, month: Number, day: Number, hour: Number, minute: Number, second: Number, isDate: Boolean }, zone: ICAL.Timezone);
+       constructor(data: { year: Number, month: Number, day: Number, hour: Number, minute: Number, second: Number, isDate: Boolean }, zone: Timezone);
 
        /**
         * The class identifier.
@@ -2474,7 +1865,7 @@ declare module ICAL {
 
        /**
         * The type name, to be used in the jCal object. This value may change and
-        * is strictly defined by the {@link ICAL.Time#isDate isDate} member.
+        * is strictly defined by the {@link Time#isDate isDate} member.
         * @readonly
         * @type {String}
         * @default "date-time"
@@ -2483,9 +1874,9 @@ declare module ICAL {
 
        /**
         * The timezone for this time.
-        * @type {ICAL.Timezone}
+        * @type {Timezone}
         */
-       zone: ICAL.Timezone;
+       zone: Timezone;
 
        /**
         * Internal uses to indicate that a change has been made and the next read
@@ -2500,9 +1891,9 @@ declare module ICAL {
        /**
         * Returns a clone of the time object.
         *
-        * @return {ICAL.Time}              The cloned object
+        * @return {Time}              The cloned object
         */
-       clone(): ICAL.Time;
+       clone(): Time;
 
        /**
         * Reset the time instance to epoch time
@@ -2518,9 +1909,9 @@ declare module ICAL {
         * @param {Number} hour             The hour to set
         * @param {Number} minute           The minute to set
         * @param {Number} second           The second to set
-        * @param {ICAL.Timezone} timezone  The timezone to set
+        * @param {Timezone} timezone  The timezone to set
         */
-       resetTo(year: Number, month: Number, day: Number, hour: Number, minute: Number, second: Number, timezone: ICAL.Timezone): void;
+       resetTo(year: Number, month: Number, day: Number, hour: Number, minute: Number, second: Number, timezone: Timezone): void;
 
        /**
         * Set up the current instance from the Javascript date value.
@@ -2528,7 +1919,7 @@ declare module ICAL {
         * @param {?Date} aDate     The Javascript Date to read, or null to reset
         * @param {Boolean} useUTC  If true, the UTC values of the date will be used
         */
-       fromJSDate(aDate?: Date, useUTC: Boolean): void;
+       fromJSDate(aDate: Date | null, useUTC: Boolean): void;
 
        /**
         * Sets up the current instance using members from the passed data object.
@@ -2542,15 +1933,15 @@ declare module ICAL {
         * @param {Number=} aData.second    The second for this date
         * @param {Boolean=} aData.isDate   If true, the instance represents a date
         *                                    (as opposed to a date-time)
-        * @param {ICAL.Timezone=} aZone    Timezone this position occurs in
+        * @param {Timezone=} aZone    Timezone this position occurs in
         */
-       fromData(aData: { year: Number, month: Number, day: Number, hour: Number, minute: Number, second: Number, isDate: Boolean }, aZone?: ICAL.Timezone): void;
+       fromData(aData: { year: Number, month: Number, day: Number, hour: Number, minute: Number, second: Number, isDate: Boolean }, aZone?: Timezone): void;
 
        /**
         * Calculate the day of week.
-        * @return {ICAL.Time.weekDay}
+        * @return {weekDay}
         */
-       dayOfWeek(): ICAL.Time.weekDay;
+       dayOfWeek(): weekDay;
 
        /**
         * Calculate the day of year.
@@ -2560,71 +1951,71 @@ declare module ICAL {
 
        /**
         * Returns a copy of the current date/time, rewound to the start of the
-        * week. The resulting ICAL.Time instance is of icaltype date, even if this
+        * week. The resulting Time instance is of icaltype date, even if this
         * is a date-time.
         *
-        * @param {ICAL.Time.weekDay=} aWeekStart
+        * @param {weekDay=} aWeekStart
         *        The week start weekday, defaults to SUNDAY
-        * @return {ICAL.Time}      The start of the week (cloned)
+        * @return {Time}      The start of the week (cloned)
         */
-       startOfWeek(aWeekStart?: ICAL.Time.weekDay): ICAL.Time;
+       startOfWeek(aWeekStart?: weekDay): Time;
 
        /**
         * Returns a copy of the current date/time, shifted to the end of the week.
-        * The resulting ICAL.Time instance is of icaltype date, even if this is a
+        * The resulting Time instance is of icaltype date, even if this is a
         * date-time.
         *
-        * @param {ICAL.Time.weekDay=} aWeekStart
+        * @param {weekDay=} aWeekStart
         *        The week start weekday, defaults to SUNDAY
-        * @return {ICAL.Time}      The end of the week (cloned)
+        * @return {Time}      The end of the week (cloned)
         */
-       endOfWeek(aWeekStart?: ICAL.Time.weekDay): ICAL.Time;
+       endOfWeek(aWeekStart?: weekDay): Time;
 
        /**
         * Returns a copy of the current date/time, rewound to the start of the
-        * month. The resulting ICAL.Time instance is of icaltype date, even if
+        * month. The resulting Time instance is of icaltype date, even if
         * this is a date-time.
         *
-        * @return {ICAL.Time}      The start of the month (cloned)
+        * @return {Time}      The start of the month (cloned)
         */
-       startOfMonth(): ICAL.Time;
+       startOfMonth(): Time;
 
        /**
         * Returns a copy of the current date/time, shifted to the end of the
-        * month.  The resulting ICAL.Time instance is of icaltype date, even if
+        * month.  The resulting Time instance is of icaltype date, even if
         * this is a date-time.
         *
-        * @return {ICAL.Time}      The end of the month (cloned)
+        * @return {Time}      The end of the month (cloned)
         */
-       endOfMonth(): ICAL.Time;
+       endOfMonth(): Time;
 
        /**
         * Returns a copy of the current date/time, rewound to the start of the
-        * year. The resulting ICAL.Time instance is of icaltype date, even if
+        * year. The resulting Time instance is of icaltype date, even if
         * this is a date-time.
         *
-        * @return {ICAL.Time}      The start of the year (cloned)
+        * @return {Time}      The start of the year (cloned)
         */
-       startOfYear(): ICAL.Time;
+       startOfYear(): Time;
 
        /**
         * Returns a copy of the current date/time, shifted to the end of the
-        * year.  The resulting ICAL.Time instance is of icaltype date, even if
+        * year.  The resulting Time instance is of icaltype date, even if
         * this is a date-time.
         *
-        * @return {ICAL.Time}      The end of the year (cloned)
+        * @return {Time}      The end of the year (cloned)
         */
-       endOfYear(): ICAL.Time;
+       endOfYear(): Time;
 
        /**
         * First calculates the start of the week, then returns the day of year for
         * this date. If the day falls into the previous year, the day is zero or negative.
         *
-        * @param {ICAL.Time.weekDay=} aFirstDayOfWeek
+        * @param {weekDay=} aFirstDayOfWeek
         *        The week start weekday, defaults to SUNDAY
         * @return {Number}     The calculated day of year
         */
-       startDoyWeek(aFirstDayOfWeek?: ICAL.Time.weekDay): Number;
+       startDoyWeek(aFirstDayOfWeek?: weekDay): Number;
 
        /**
         * Get the dominical letter for the current year. Letters range from A - G
@@ -2656,11 +2047,11 @@ declare module ICAL {
         * month.  Will always return false when rule resolves outside of current
         * month.
         *
-        * @param {ICAL.Time.weekDay} aDayOfWeek       Day of week to check
+        * @param {weekDay} aDayOfWeek       Day of week to check
         * @param {Number} aPos                        Relative position
         * @return {Boolean}                           True, if its the nth weekday
         */
-       isNthWeekDay(aDayOfWeek: ICAL.Time.weekDay, aPos: Number): Boolean;
+       isNthWeekDay(aDayOfWeek: weekDay, aPos: Number): Boolean;
 
        /**
         * Calculates the ISO 8601 week number. The first week of a year is the
@@ -2672,11 +2063,11 @@ declare module ICAL {
         * different week start is specified, this will also affect the week
         * number.
         *
-        * @see ICAL.Time.weekOneStarts
-        * @param {ICAL.Time.weekDay} aWeekStart        The weekday the week starts with
+        * @see Time.weekOneStarts
+        * @param {weekDay} aWeekStart        The weekday the week starts with
         * @return {Number}                             The ISO week number
         */
-       weekNumber(aWeekStart: ICAL.Time.weekDay): Number;
+       weekNumber(aWeekStart: weekDay): Number;
 
        /**
         * Adds the duration to the current time. The instance is modified in
@@ -2691,44 +2082,44 @@ declare module ICAL {
         * the relative difference between two time objects excluding their
         * timezone differences.
         *
-        * @param {ICAL.Time} aDate     The date to substract
+        * @param {Time} aDate     The date to substract
         * @return {ICAL.Duration}      The difference as a duration
         */
-       subtractDate(aDate: ICAL.Time): ICAL.Duration;
+       subtractDate(aDate: Time): ICAL.Duration;
 
        /**
         * Subtract the date details, taking timezones into account.
         *
-        * @param {ICAL.Time} aDate  The date to subtract
+        * @param {Time} aDate  The date to subtract
         * @return {ICAL.Duration}  The difference in duration
         */
-       subtractDateTz(aDate: ICAL.Time): ICAL.Duration;
+       subtractDateTz(aDate: Time): ICAL.Duration;
 
        /**
-        * Compares the ICAL.Time instance with another one.
+        * Compares the Time instance with another one.
         *
-        * @param {ICAL.Duration} aOther        The instance to compare with
+        * @param {ICAL.Time} aOther        The instance to compare with
         * @return {Number}                     -1, 0 or 1 for less/equal/greater
         */
-       compare(aOther: ICAL.Duration): Number;
+       compare(aOther: ICAL.Time): Number;
 
        /**
         * Compares only the date part of this instance with another one.
         *
-        * @param {ICAL.Duration} other         The instance to compare with
-        * @param {ICAL.Timezone} tz            The timezone to compare in
+        * @param {ICAL.Time} other         The instance to compare with
+        * @param {Timezone} tz            The timezone to compare in
         * @return {Number}                     -1, 0 or 1 for less/equal/greater
         */
-       compareDateOnlyTz(other: ICAL.Duration, tz: ICAL.Timezone): Number;
+       compareDateOnlyTz(other: ICAL.Time, tz: Timezone): Number;
 
        /**
-        * Convert the instance into another timzone. The returned ICAL.Time
+        * Convert the instance into another timzone. The returned Time
         * instance is always a copy.
         *
-        * @param {ICAL.Timezone} zone      The zone to convert to
-        * @return {ICAL.Time}              The copy, converted to the zone
+        * @param {Timezone} zone      The zone to convert to
+        * @return {Time}              The copy, converted to the zone
         */
-       convertToZone(zone: ICAL.Timezone): ICAL.Time;
+       convertToZone(zone: Timezone): Time;
 
        /**
         * Calculates the UTC offset of the current date/time in the timezone it is
@@ -2795,7 +2186,7 @@ declare module ICAL {
         *
         * var deserialized = JSON.parse(json);
         *
-        * var time = new ICAL.Time(deserialized);
+        * var time = new Time(deserialized);
         *
         * @return {Object}
         */
@@ -2819,61 +2210,61 @@ declare module ICAL {
        static isLeapYear(year: Number): Boolean;
 
        /**
-        * Create a new ICAL.Time from the day of year and year. The date is returned
+        * Create a new Time from the day of year and year. The date is returned
         * in floating timezone.
         *
         * @param {Number} aDayOfYear     The day of year
         * @param {Number} aYear          The year to create the instance in
-        * @return {ICAL.Time}            The created instance with the calculated date
+        * @return {Time}            The created instance with the calculated date
         */
-       static fromDayOfYear(aDayOfYear: Number, aYear: Number): ICAL.Time;
+       static fromDayOfYear(aDayOfYear: Number, aYear: Number): Time;
 
        /**
-        * Returns a new ICAL.Time instance from a date string, e.g 2015-01-02.
+        * Returns a new Time instance from a date string, e.g 2015-01-02.
         *
-        * @deprecated                Use {@link ICAL.Time.fromDateString} instead
+        * @deprecated                Use {@link Time.fromDateString} instead
         * @param {String} str        The string to create from
-        * @return {ICAL.Time}        The date/time instance
+        * @return {Time}        The date/time instance
         */
-       static fromStringv2(str: String): ICAL.Time;
+       static fromStringv2(str: String): Time;
 
        /**
-        * Returns a new ICAL.Time instance from a date string, e.g 2015-01-02.
+        * Returns a new Time instance from a date string, e.g 2015-01-02.
         *
         * @param {String} aValue     The string to create from
-        * @return {ICAL.Time}        The date/time instance
+        * @return {Time}        The date/time instance
         */
-       static fromDateString(aValue: String): ICAL.Time;
+       static fromDateString(aValue: String): Time;
 
        /**
-        * Returns a new ICAL.Time instance from a date-time string, e.g
+        * Returns a new Time instance from a date-time string, e.g
         * 2015-01-02T03:04:05. If a property is specified, the timezone is set up
         * from the property's TZID parameter.
         *
         * @param {String} aValue         The string to create from
         * @param {ICAL.Property=} prop   The property the date belongs to
-        * @return {ICAL.Time}            The date/time instance
+        * @return {Time}            The date/time instance
         */
-       static fromDateTimeString(aValue: String, prop?: ICAL.Property): ICAL.Time;
+       static fromDateTimeString(aValue: String, prop?: ICAL.Property): Time;
 
        /**
-        * Returns a new ICAL.Time instance from a date or date-time string,
+        * Returns a new Time instance from a date or date-time string,
         *
         * @param {String} aValue         The string to create from
-        * @return {ICAL.Time}            The date/time instance
+        * @return {Time}            The date/time instance
         */
-       static fromString(aValue: String): ICAL.Time;
+       static fromString(aValue: String): Time;
 
        /**
-        * Creates a new ICAL.Time instance from the given Javascript Date.
+        * Creates a new Time instance from the given Javascript Date.
         *
         * @param {?Date} aDate     The Javascript Date to read, or null to reset
         * @param {Boolean} useUTC  If true, the UTC values of the date will be used
         */
-       static fromJSDate(aDate?: Date, useUTC: Boolean): void;
+       static fromJSDate(aDate: Date | null, useUTC: Boolean): void;
 
        /**
-        * Creates a new ICAL.Time instance from the the passed data object.
+        * Creates a new Time instance from the the passed data object.
         *
         * @param {Object} aData            Time initialization
         * @param {Number=} aData.year      The year for this date
@@ -2884,25 +2275,25 @@ declare module ICAL {
         * @param {Number=} aData.second    The second for this date
         * @param {Boolean=} aData.isDate   If true, the instance represents a date
         *                                    (as opposed to a date-time)
-        * @param {ICAL.Timezone=} aZone    Timezone this position occurs in
+        * @param {Timezone=} aZone    Timezone this position occurs in
         */
-       static fromData(aData: { year: Number, month: Number, day: Number, hour: Number, minute: Number, second: Number, isDate: Boolean }, aZone?: ICAL.Timezone): void;
+       static fromData(aData: { year: Number, month: Number, day: Number, hour: Number, minute: Number, second: Number, isDate: Boolean }, aZone?: Timezone): void;
 
        /**
-        * Creates a new ICAL.Time instance from the current moment.
-        * @return {ICAL.Time}
+        * Creates a new Time instance from the current moment.
+        * @return {Time}
         */
-       static now(): ICAL.Time;
+       static now(): Time;
 
        /**
         * Returns the date on which ISO week number 1 starts.
         *
-        * @see ICAL.Time#weekNumber
+        * @see Time#weekNumber
         * @param {Number} aYear                  The year to search in
-        * @param {ICAL.Time.weekDay=} aWeekStart The week start weekday, used for calculation.
-        * @return {ICAL.Time}                    The date on which week number 1 starts
+        * @param {weekDay=} aWeekStart The week start weekday, used for calculation.
+        * @return {Time}                    The date on which week number 1 starts
         */
-       static weekOneStarts(aYear: Number, aWeekStart?: ICAL.Time.weekDay): ICAL.Time;
+       static weekOneStarts(aYear: Number, aWeekStart?: weekDay): Time;
 
        /**
         * Get the dominical letter for the given year. Letters range from A - G for
@@ -2914,41 +2305,41 @@ declare module ICAL {
        static getDominicalLetter(yr: Number): String;
 
        /**
-        * January 1st, 1970 as an ICAL.Time.
-        * @type {ICAL.Time}
+        * January 1st, 1970 as an Time.
+        * @type {Time}
         * @constant
         * @instance
         */
-       static epochTime: ICAL.Time;
+       static epochTime: Time;
 
        /**
         * The days that have passed in the year after a given month. The array has
         * two members, one being an array of passed days for non-leap years, the
         * other analog for leap years.
         * @example
-        * var isLeapYear = ICAL.Time.isLeapYear(year);
-        * var passedDays = ICAL.Time.daysInYearPassedMonth[isLeapYear][month];
+        * var isLeapYear = Time.isLeapYear(year);
+        * var passedDays = Time.daysInYearPassedMonth[isLeapYear][month];
         * @type {Array.<Array.<Number>>}
         */
-       static daysInYearPassedMonth: Array.<Number[]>;
-
-       /**
-        * The weekday, 1 = SUNDAY, 7 = SATURDAY. Access via
-        * ICAL.Time.MONDAY, ICAL.Time.TUESDAY, ...
-        *
-        * @typedef {Number} weekDay
-        * @memberof ICAL.Time
-        */
-       type weekDay = Number;
+       static daysInYearPassedMonth: number[][];
 
        /**
         * The default weekday for the WKST part.
         * @constant
-        * @default ICAL.Time.MONDAY
+        * @default Time.MONDAY
         */
        static DEFAULT_WEEK_START: any;
 
    }
+
+    /**
+    * The weekday, 1 = SUNDAY, 7 = SATURDAY. Access via
+    * Time.MONDAY, Time.TUESDAY, ...
+    *
+    * @typedef {Number} weekDay
+    * @memberof Time
+    */
+    type weekDay = Number;
 
    /**
     * @classdesc
@@ -2959,7 +2350,7 @@ declare module ICAL {
     * var timezoneComp = vcalendar.getFirstSubcomponent('vtimezone');
     * var tzid = timezoneComp.getFirstPropertyValue('tzid');
     *
-    * var timezone = new ICAL.Timezone({
+    * var timezone = new Timezone({
     *   component: timezoneComp,
     *   tzid
     * });
@@ -2987,7 +2378,7 @@ declare module ICAL {
         * var timezoneComp = vcalendar.getFirstSubcomponent('vtimezone');
         * var tzid = timezoneComp.getFirstPropertyValue('tzid');
         *
-        * var timezone = new ICAL.Timezone({
+        * var timezone = new Timezone({
         *   component: timezoneComp,
         *   tzid
         * });
@@ -3080,10 +2471,10 @@ declare module ICAL {
        /**
         * Finds the utcOffset the given time would occur in this timezone.
         *
-        * @param {ICAL.Time} tt        The time to check for
+        * @param {Time} tt        The time to check for
         * @return {Number} utc offset in seconds
         */
-       utcOffset(tt: ICAL.Time): Number;
+       utcOffset(tt: Time): Number;
 
        /**
         * The string representation of this timezone.
@@ -3094,15 +2485,15 @@ declare module ICAL {
        /**
         * Convert the date/time from one zone to the next.
         *
-        * @param {ICAL.Time} tt                  The time to convert
-        * @param {ICAL.Timezone} from_zone       The source zone to convert from
-        * @param {ICAL.Timezone} to_zone         The target zone to conver to
-        * @return {ICAL.Time}                    The converted date/time object
+        * @param {Time} tt                  The time to convert
+        * @param {Timezone} from_zone       The source zone to convert from
+        * @param {Timezone} to_zone         The target zone to conver to
+        * @return {Time}                    The converted date/time object
         */
-       static convert_time(tt: ICAL.Time, from_zone: ICAL.Timezone, to_zone: ICAL.Timezone): ICAL.Time;
+       static convert_time(tt: Time, from_zone: Timezone, to_zone: Timezone): Time;
 
        /**
-        * Creates a new ICAL.Timezone instance from the passed data object.
+        * Creates a new Timezone instance from the passed data object.
         *
         * @param {ICAL.Component|Object} aData options for class
         * @param {String|ICAL.Component} aData.component
@@ -3120,19 +2511,19 @@ declare module ICAL {
 
        /**
         * The instance describing the UTC timezone
-        * @type {ICAL.Timezone}
+        * @type {Timezone}
         * @constant
         * @instance
         */
-       static utcTimezone: ICAL.Timezone;
+       static utcTimezone: Timezone;
 
        /**
         * The instance describing the local timezone
-        * @type {ICAL.Timezone}
+        * @type {Timezone}
         * @constant
         * @instance
         */
-       static localTimezone: ICAL.Timezone;
+       static localTimezone: Timezone;
 
        /**
         * Adjust a timezone change object.
@@ -3154,7 +2545,7 @@ declare module ICAL {
     * loading pre-expanded timezones.
     *
     * @namespace
-    * @alias ICAL.TimezoneService
+    * @alias TimezoneService
     */
    module TimezoneService {
        /**
@@ -3169,9 +2560,9 @@ declare module ICAL {
         * Returns a timezone by its tzid if present.
         *
         * @param {String} tzid     Timezone identifier (e.g. America/Los_Angeles)
-        * @return {?ICAL.Timezone} The timezone, or null if not found
+        * @return {?Timezone} The timezone, or null if not found
         */
-       function get(tzid: String): ICAL.Timezone;
+       function get(tzid: String): Timezone;
 
        /**
         * Registers a timezone object or component.
@@ -3179,18 +2570,18 @@ declare module ICAL {
         * @param {String=} name
         *        The name of the timezone. Defaults to the component's TZID if not
         *        passed.
-        * @param {ICAL.Component|ICAL.Timezone} zone
+        * @param {ICAL.Component|Timezone} zone
         *        The initialized zone or vtimezone.
         */
-       function register(name?: String, zone: (ICAL.Component|ICAL.Timezone)): void;
+       function register(name: String | null, zone: (ICAL.Component|Timezone)): void;
 
        /**
         * Removes a timezone by its tzid from the list.
         *
         * @param {String} tzid     Timezone identifier (e.g. America/Los_Angeles)
-        * @return {?ICAL.Timezone} The removed timezone, or null if not registered
+        * @return {?Timezone} The removed timezone, or null if not registered
         */
-       function remove(tzid: String): ICAL.Timezone;
+       function remove(tzid: String): Timezone;
 
    }
 
@@ -3320,7 +2711,7 @@ declare module ICAL {
    }
 
    /**
-    * Describes a vCard time, which has slight differences to the ICAL.Time.
+    * Describes a vCard time, which has slight differences to the Time.
     * Properties can be null if not specified, for example for dates with
     * reduced accuracy or truncation.
     *
@@ -3332,7 +2723,7 @@ declare module ICAL {
     *
     * @alias ICAL.VCardTime
     * @class
-    * @extends {ICAL.Time}
+    * @extends {Time}
     * @param {Object} data                           The data for the time instance
     * @param {Number=} data.year                     The year for this date
     * @param {Number=} data.month                    The month for this date
@@ -3340,12 +2731,12 @@ declare module ICAL {
     * @param {Number=} data.hour                     The hour for this date
     * @param {Number=} data.minute                   The minute for this date
     * @param {Number=} data.second                   The second for this date
-    * @param {ICAL.Timezone|ICAL.UtcOffset} zone     The timezone to use
+    * @param {Timezone|ICAL.UtcOffset} zone     The timezone to use
     * @param {String} icaltype                       The type for this date/time object
     */
-   class VCardTime extends ICAL.Time {
+   class VCardTime extends Time {
        /**
-        * Describes a vCard time, which has slight differences to the ICAL.Time.
+        * Describes a vCard time, which has slight differences to the Time.
         * Properties can be null if not specified, for example for dates with
         * reduced accuracy or truncation.
         *
@@ -3357,7 +2748,7 @@ declare module ICAL {
         *
         * @alias ICAL.VCardTime
         * @class
-        * @extends {ICAL.Time}
+        * @extends {Time}
         * @param {Object} data                           The data for the time instance
         * @param {Number=} data.year                     The year for this date
         * @param {Number=} data.month                    The month for this date
@@ -3365,10 +2756,10 @@ declare module ICAL {
         * @param {Number=} data.hour                     The hour for this date
         * @param {Number=} data.minute                   The minute for this date
         * @param {Number=} data.second                   The second for this date
-        * @param {ICAL.Timezone|ICAL.UtcOffset} zone     The timezone to use
+        * @param {Timezone|ICAL.UtcOffset} zone     The timezone to use
         * @param {String} icaltype                       The type for this date/time object
         */
-       constructor(data: { year: Number, month: Number, day: Number, hour: Number, minute: Number, second: Number }, zone: (ICAL.Timezone|ICAL.UtcOffset), icaltype: String);
+       constructor(data: { year: Number, month: Number, day: Number, hour: Number, minute: Number, second: Number }, zone: (Timezone|ICAL.UtcOffset), icaltype: String);
 
        /**
         * Returns a new ICAL.VCardTime instance from a date and/or time string.
@@ -3382,21 +2773,3 @@ declare module ICAL {
    }
 
 }
-
-/**
- * This object is returned by {@link ICAL.Event#getOccurrenceDetails getOccurrenceDetails}
- *
- * @typedef {Object} occurrenceDetails
- * @memberof ICAL.Event
- * @property {ICAL.Time} recurrenceId       The passed in recurrence id
- * @property {ICAL.Event} item              The occurrence
- * @property {ICAL.Time} startDate          The start of the occurrence
- * @property {ICAL.Time} endDate            The end of the occurrence
- */
-interface IoccurrenceDetails {
-   recurrenceId: ICAL.Time;
-   item: ICAL.Event;
-   startDate: ICAL.Time;
-   endDate: ICAL.Time;
-}
-

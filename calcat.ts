@@ -50,8 +50,9 @@ async function main() {
   let jcal = ICAL.parse(data);
 
   // Time range.
-  let start = ICAL.Time.fromDateString('2016-10-06');
-  let end = ICAL.Time.fromDateString('2016-10-10');
+  let now = ICAL.Time.fromJSDate(new Date());
+  let start = now.startOfWeek();
+  let end = now.endOfWeek();
 
   // Get all events.
   for (let event of get_events(jcal)) {

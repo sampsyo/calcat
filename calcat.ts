@@ -13,14 +13,21 @@ function read_string(filename: string): Promise<string> {
   });
 }
 
+function* get_events(jcal: any): Iterable<any> {
+  var comp = new icaljs.Component(jcal);
+  console.log(comp);
+  for (let vevent of comp.getAllSubcomponents('vevent')) {
+    var event = new icaljs.Event(vevent);
+    yield event;
+  }
+}
+
 async function main() {
   let data = await read_string('cal.ics');
   let jcal = icaljs.parse(data);
 
   // Get all events.
-  var comp = new icaljs.Component(jcal[1]);
-  for (let vevent of comp.getAllSubcomponents('vevent')) {
-    var event = new icaljs.Event(vevent);
+  for (let event of get_events(jcal)) {
     console.log(event);
   }
 }

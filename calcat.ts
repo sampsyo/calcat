@@ -260,17 +260,19 @@ async function main() {
   let day: ICAL.Time;
   let start: ICAL.Time;
   let end: ICAL.Time;
-  if (opts.week) {
-    day = ICAL.Time.fromString(opts.week);
-    start = day.startOfWeek();
-    end = day.endOfWeek();
+  if (opts.date) {
+    // Show a single day.
+    day = ICAL.Time.fromString(opts.date);
+    start = end = day;
   } else {
-    if (opts.date) {
-      day = ICAL.Time.fromString(opts.date);
+    // Show a whole week (the default).
+    if (opts.week) {
+      day = ICAL.Time.fromString(opts.week);
     } else {
       day = ICAL.Time.now();
     }
-    start = end = day;
+    start = day.startOfWeek();
+    end = day.endOfWeek();
   }
 
   // Get events in the range.

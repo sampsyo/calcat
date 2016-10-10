@@ -138,7 +138,7 @@ export class Component {
     *
     * @param {string} str        The iCalendar string to parse
     */
-    static fromstring(str: string): void;
+    static fromString(str: string): void;
 
 }
 
@@ -324,7 +324,7 @@ export class Duration {
     * @param {string} aStr       The string to parse
     * @return {Duration}    The created duration instance
     */
-    static fromstring(aStr: string): Duration;
+    static fromString(aStr: string): Duration;
 
     /**
     * Creates a new Duration instance from the given data object.
@@ -843,7 +843,7 @@ export class Period {
     * @param {Property} prop    The property this period will be on
     * @return {Period}          The created period instance
     */
-    static fromstring(str: string, prop: Property): Period;
+    static fromString(str: string, prop: Property): Period;
 
     /**
     * Creates a new {@link Period} instance from the given data object.
@@ -1026,7 +1026,7 @@ export class Property {
     * @param {design.designSet=} designSet  The design data to use for this property
     * @return {Property}                    The created iCalendar property
     */
-    static fromstring(str: string, designSet?: any): Property;
+    static fromString(str: string, designSet?: any): Property;
 
 }
 
@@ -1274,7 +1274,7 @@ export class Recur {
     * @param {string} string         The string to parse
     * @return {Recur}           The created recurrence instance
     */
-    static fromstring(string: string): Recur;
+    static fromString(string: string): Recur;
 
     /**
     * Creates a new {@link Recur} instance using members from the passed
@@ -2208,7 +2208,7 @@ export class Time {
     * @param {string} str        The string to create from
     * @return {Time}        The date/time instance
     */
-    static fromstringv2(str: string): Time;
+    static fromStringv2(str: string): Time;
 
     /**
     * Returns a new Time instance from a date string, e.g 2015-01-02.
@@ -2235,7 +2235,7 @@ export class Time {
     * @param {string} aValue         The string to create from
     * @return {Time}            The date/time instance
     */
-    static fromstring(aValue: string): Time;
+    static fromString(aValue: string): Time;
 
     /**
     * Creates a new Time instance from the given Javascript Date.
@@ -2680,7 +2680,7 @@ export class UtcOffset {
     * @param {string} astring    The string to parse
     * @return {Duration}    The created utc-offset instance
     */
-    static fromstring(astring: string): Duration;
+    static fromString(astring: string): Duration;
 
     /**
     * Creates a new {@link UtcOffset} instance from the passed seconds

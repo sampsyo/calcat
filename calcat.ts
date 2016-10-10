@@ -239,37 +239,45 @@ async function main() {
     .usage('[options] <calendar.ics>')
     .option('-a, --agenda', 'print human-readable agenda')
     .option('-g, --grid', 'print availability grid')
+    .option('-w, --week <date>', 'show data for a given week')
     .action((fn) => {
       filename = fn;
     });
   program.parse(process.argv);
+
   if (!filename) {
     program.help();
     return;
   }
+  let opts = program.opts();
 
   // Parse the calendar.
   let data = await read_string(filename);
   let jcal = ICAL.parse(data);
 
   // Time range.
-  let now = ICAL.Time.now();
-  let start = now.startOfWeek();
-  let end = now.endOfWeek();
+  let day: ICAL.Time;
+  if (opts.week) {
+    day = ICAL.Time.fromString(opts.week);
+  } else {
+    day = ICAL.Time.now();
+  }
+  let start = day.startOfWeek();
+  let end = day.endOfWeek();
   end.adjust(7, 0, 0, 0);
 
   // Get event iterable.
   let instances = get_occurrences(jcal, start, end);
 
-  if (program.opts().agenda) {
+  if (opts.agenda) {
     // Agenda display.
-    for (let line of show_agenda(instances, now)) {
+    for (let line of show_agenda(instances, day)) {
       console.log(line);
     }
   } else {
     // Grid display.
     console.log(draw_header());
-    for (let line of draw_avail(instances, now)) {
+    for (let line of draw_avail(instances, day)) {
       console.log(line);
     }
   }

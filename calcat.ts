@@ -273,19 +273,25 @@ async function main() {
     start = end = day;
   }
 
-  // Get event iterable.
-  let instances = get_occurrences(jcal, start, end);
+  // Get events in the range.
+  let instances = Array.from(get_occurrences(jcal, start, end));
 
+  // Display the data.
+  let dates_iter = iter_time(start, end, new ICAL.Duration({ days: 1 }));
   if (opts.agenda) {
     // Agenda display.
-    for (let line of show_agenda(instances, day)) {
-      console.log(line);
+    for (let date of dates_iter) {
+      for (let line of show_agenda(instances, day)) {
+        console.log(line);
+      }
     }
   } else {
     // Grid display.
     console.log(draw_header());
-    for (let line of draw_avail(instances, day)) {
-      console.log(line);
+    for (let date of dates_iter) {
+      for (let line of draw_avail(instances, day)) {
+        console.log(line);
+      }
     }
   }
 

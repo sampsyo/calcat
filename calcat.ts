@@ -273,6 +273,7 @@ async function main() {
     }
     start = day.startOfWeek();
     end = day.endOfWeek();
+    end.adjust(1, 0, 0, 0);  // "One past the end" for iteration.
   }
 
   // Get events in the range.

@@ -239,6 +239,7 @@ async function main() {
     .usage('[options] <calendar.ics>')
     .option('-a, --agenda', 'print human-readable agenda')
     .option('-g, --grid', 'print availability grid')
+    .option('-d, --date <date>', 'show data for a given day')
     .option('-w, --week <date>', 'show data for a given week')
     .action((fn) => {
       filename = fn;
@@ -257,14 +258,20 @@ async function main() {
 
   // Time range.
   let day: ICAL.Time;
+  let start: ICAL.Time;
+  let end: ICAL.Time;
   if (opts.week) {
     day = ICAL.Time.fromString(opts.week);
+    start = day.startOfWeek();
+    end = day.endOfWeek();
   } else {
-    day = ICAL.Time.now();
+    if (opts.date) {
+      day = ICAL.Time.fromString(opts.date);
+    } else {
+      day = ICAL.Time.now();
+    }
+    start = end = day;
   }
-  let start = day.startOfWeek();
-  let end = day.endOfWeek();
-  end.adjust(7, 0, 0, 0);
 
   // Get event iterable.
   let instances = get_occurrences(jcal, start, end);

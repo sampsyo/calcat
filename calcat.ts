@@ -244,8 +244,7 @@ async function main() {
     });
   program.parse(process.argv);
   if (!filename) {
-    console.error("no filename specified");
-    process.exit(1);
+    program.help();
     return;
   }
 

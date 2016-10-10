@@ -281,7 +281,7 @@ async function main() {
   if (opts.agenda) {
     // Agenda display.
     for (let date of dates_iter) {
-      for (let line of show_agenda(instances, day)) {
+      for (let line of show_agenda(instances, date)) {
         console.log(line);
       }
     }
@@ -289,7 +289,7 @@ async function main() {
     // Grid display.
     console.log(draw_header());
     for (let date of dates_iter) {
-      for (let line of draw_avail(instances, day)) {
+      for (let line of draw_avail(instances, date)) {
         console.log(line);
       }
     }

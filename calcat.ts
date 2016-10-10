@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as ICAL from 'ical.js';
+import * as commander from 'commander';
 
 /**
  * Async function to read a string from a file given its name.
@@ -69,7 +70,7 @@ function dateOfTime(time: ICAL.Time): ICAL.Time {
 
 /**
  * Yield strings that depict the agenda for a specific day.
- * 
+ *
  * @param when   Some time on the day of interest.
  */
 function* show_agenda(info: Iterable<[ICAL.Event, ICAL.Time]>, when: ICAL.Time) {
@@ -231,7 +232,25 @@ function* get_occurrences(jcal: any, start: ICAL.Time, end: ICAL.Time):
 }
 
 async function main() {
-  let data = await read_string('cal.ics');
+  // Command-line interface.
+  let program = new commander.Command();
+  let filename: string | undefined = undefined;
+  program
+    .usage('[options] <calendar.ics>')
+    .option('-a, --agenda', 'print human-readable agenda')
+    .option('-g, --grid', 'print availability grid')
+    .action((fn) => {
+      filename = fn;
+    });
+  program.parse(process.argv);
+  if (!filename) {
+    console.error("no filename specified");
+    process.exit(1);
+    return;
+  }
+
+  // Parse the calendar.
+  let data = await read_string(filename);
   let jcal = ICAL.parse(data);
 
   // Time range.
@@ -240,12 +259,22 @@ async function main() {
   let end = now.endOfWeek();
   end.adjust(7, 0, 0, 0);
 
-  // Get all events.
+  // Get event iterable.
   let instances = get_occurrences(jcal, start, end);
-  console.log(draw_header());
-  for (let line of draw_avail(instances, now)) {
-    console.log(line);
+
+  if (program.opts().agenda) {
+    // Agenda display.
+    for (let line of show_agenda(instances, now)) {
+      console.log(line);
+    }
+  } else {
+    // Grid display.
+    console.log(draw_header());
+    for (let line of draw_avail(instances, now)) {
+      console.log(line);
+    }
   }
+
 }
 
 main();

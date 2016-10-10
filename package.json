@@ -3,10 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "ical.js": "^1.2.2"
+    "ical.js": "^1.2.2",
+    "commander": "^2.9.0"
   },
   "devDependencies": {
     "typescript": "^2.0.3",
-    "@types/node": "^6.0.45"
+    "@types/node": "^6.0.45",
+    "@types/commander": "^2.3.30"
   }
 }
